@@ -1,56 +1,46 @@
 {
   "career": [
     {
-      "name": "DBS Bank",
-      "href": "https://www.dbs.com.sg",
-      "title": "Graduate Associate (SEED Programme)",
-      "logo": "/dbs.png",
+      "name": "Epic Systems",
+      "href": "https://www.epic.com/",
+      "title": "Software Developer",
+      "logo": "/epic.png",
       "start": "Jul 2023",
       "description": [
-        "Developed the Java backend for a bank account servicing process with multiple channel integrations using Activiti workflow",
-        "Built a custom database migration tool using Python and MariaDB and facilitated the migration of 1000+ processes from a vendor platform"
+        "Developed various projects for Epic’s MyChart Enterprise application, driving functionality for 305 million users and $4.6 billion of annual revenue"
       ]
     },
     {
-      "name": "Singapore Institute of Technology",
-      "href": "https://www.singaporetech.edu.sg",
-      "title": "Software Developer (Contract)",
-      "logo": "/sit.png",
+      "name": "Workday",
+      "href": "https://www.workday.com/",
+      "title": "Software Application Engineer (Intern)",
+      "logo": "/workday.png",
       "start": "Apr 2023",
       "end": "Jun 2023",
       "description": [
-        "Built NFTVue, a NFT gallery website that allows students to connect their crypto wallets to view and verify their school event-issued NFTs",
-        "Worked on DemoConstruct, a full-stack web application (React + Python) that uses Meshroom to reconstruct 3D models from captured images"
-      ],
-      "links": [
-        {
-          "name": "NFTVue",
-          "href": "https://nftvue.vercel.app",
-          "icon": "globe"
-        }
+        "Assisted in migrating the Customer Experience Platform to React"
       ]
     },
     {
-      "name": "DBS Bank",
-      "href": "https://www.dbs.com.sg",
-      "title": "Software Developer (Intern)",
-      "logo": "/dbs.png",
-      "start": "May 2022",
-      "end": "Dec 2022",
+      "name": "Xircle",
+      "href": "#",
+      "title": "Software Developer",
+      "logo": "/xircle.jpg",
+      "start": "Nov 2021",
+      "end": "Jun 2022",
       "description": [
-        "Worked on the backend for the digital exchange and asset custody application using Spring Boot and Java",
-        "Built an admin dashboard web application for a DBS Metaverse event using Spring Security and Angular"
+        "Social media mobile application with a 500+ active user base of college students"
       ]
     },
     {
-      "name": "Activate Interactive Pte Ltd",
-      "href": "https://www.activate.sg",
-      "title": "Software Developer (Intern)",
-      "logo": "/activate.png",
-      "start": "May 2019",
-      "end": "Aug 2019",
+      "name": "Hakkei",
+      "href": "https://www.hakkei.co/",
+      "title": "Software Engineer (Intern)",
+      "logo": "/hakkei.png",
+      "start": "Nov 2020",
+      "end": "Mar 2021",
       "description": [
-        "Developed RP Connect, the iOS and Android mobile app for Republic Polytechnic using React Native"
+        "Progressive web app to integrate with Hakkei’s ergonomic keyboard"
       ]
     }
   ]

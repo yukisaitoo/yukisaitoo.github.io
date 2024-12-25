@@ -38,7 +38,16 @@ export default function TimelineItem({ experience }: Props) {
         )}
         <h2 className="font-semibold leading-none">{name}</h2>
         {title && <p className="text-sm text-muted-foreground">{title}</p>}
-        {description && (
+        {description && description.length === 1 && (
+          <>
+            {description.map((desc, i) => (
+              <li key={i} className="prose pr-8 text-sm dark:prose-invert">
+                {desc}
+              </li>
+            ))}
+          </>
+        )}
+        {description && description.length !== 1 && (
           <ul className="ml-4 list-outside list-disc">
             {description.map((desc, i) => (
               <li key={i} className="prose pr-8 text-sm dark:prose-invert">

@@ -14,8 +14,8 @@ const calistoga = Calistoga({
 });
 
 export const metadata: Metadata = {
-  title: "Ted Thoughts",
-  description: "My personal site to showcase my developer work and opinions.",
+  title: "Yuki Saito",
+  description: "My personal site to showcase my developer work.",
 };
 
 export default function RootLayout({

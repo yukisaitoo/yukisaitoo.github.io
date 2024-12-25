@@ -11,10 +11,6 @@ export default function Footer() {
           <Link className="link" href="/">
             tedawf.com
           </Link>
-          {" | "}
-          <Link className="link font-bold" href="/privacy">
-            privacy?
-          </Link>
         </p>
       </section>
     </footer>
