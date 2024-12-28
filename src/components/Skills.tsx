@@ -6,7 +6,7 @@ export default function Skills() {
   const skills = skillSchema.parse(data).skills;
 
   return (
-    <div className="grid h-full w-full grid-cols-2 grid-rows-4 gap-2 md:grid-cols-3 md:grid-rows-2">
+    <div className="grid h-full w-full grid-cols-2 grid-rows-3 gap-2 md:grid-cols-3 md:grid-rows-2">
       {skills.map((skill) => {
         return (
           <div
@@ -23,8 +23,8 @@ export default function Skills() {
             >
               <Image
                 className="rounded-sm transition-all duration-150 group-hover:scale-105"
-                src={`/${skill.icon}`}
-                alt={`/${skill.name}`}
+                src={`/personal-website/${skill.icon}`}
+                alt={`${skill.name}`}
                 width={40}
                 height={40}
                 priority

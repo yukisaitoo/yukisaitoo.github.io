@@ -21,7 +21,7 @@ export default function TimelineItem({ experience }: Props) {
       >
         <Avatar className="size-12 border">
           <AvatarImage
-            src={logo}
+            src={`/personal-website/${logo}`}
             alt={name}
             className="bg-background object-contain"
           />
@@ -41,9 +41,9 @@ export default function TimelineItem({ experience }: Props) {
         {description && description.length === 1 && (
           <>
             {description.map((desc, i) => (
-              <li key={i} className="prose pr-8 text-sm dark:prose-invert">
+              <div key={i} className="prose pr-8 text-sm dark:prose-invert">
                 {desc}
-              </li>
+              </div>
             ))}
           </>
         )}

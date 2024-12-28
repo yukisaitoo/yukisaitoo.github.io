@@ -19,7 +19,7 @@ export default async function Home() {
         <div className="flex flex-col items-center">
           <Image
             className="rounded-lg"
-            src="/yuki.jpeg"
+            src="/personal-website/yuki.jpeg"
             alt="Photo of Yuki"
             width={175}
             height={175}
