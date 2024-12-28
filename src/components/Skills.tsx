@@ -23,7 +23,7 @@ export default function Skills() {
             >
               <Image
                 className="rounded-sm transition-all duration-150 group-hover:scale-105"
-                src={`/personal-website/${skill.icon}`}
+                src={`/${skill.icon}`}
                 alt={`${skill.name}`}
                 width={40}
                 height={40}
