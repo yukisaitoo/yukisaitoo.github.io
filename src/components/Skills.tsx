@@ -27,6 +27,7 @@ export default function Skills() {
                 alt={`${skill.name}`}
                 width={40}
                 height={40}
+                style={{ width: "40px", height: "40px" }}
                 priority
               />
             </div>

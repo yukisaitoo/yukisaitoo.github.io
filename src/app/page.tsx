@@ -52,9 +52,7 @@ export default async function Home() {
 
       <section className="flex flex-col gap-8">
         <div className="flex justify-between">
-          <h2 className="title text-2xl sm:text-3xl">
-            most used techonologies
-          </h2>
+          <h2 className="title text-2xl sm:text-3xl">most used technologies</h2>
         </div>
         <Skills />
       </section>
