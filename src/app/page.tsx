@@ -23,6 +23,7 @@ export default async function Home() {
             alt="Photo of Yuki"
             width={175}
             height={175}
+            style={{ width: "175px", height: "175px" }}
             priority
           />
           <div className="mt-2 flex w-fit items-center gap-2 rounded-full bg-green-500/20 px-2 py-1 pr-2.5">
