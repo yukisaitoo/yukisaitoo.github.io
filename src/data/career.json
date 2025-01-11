@@ -7,7 +7,7 @@
       "logo": "/epic.png",
       "start": "Jul 2023",
       "description": [
-        "Developed various projects for Epic’s MyChart Enterprise application, driving functionality for 305 million users and $4.6 billion of annual revenue"
+        "Developed features for Epic’s MyChart Enterprise application, enhancing functionality for 305 million users and contributing to $4.6 billion in annual revenue"
       ]
     },
     {
@@ -40,7 +40,7 @@
       "start": "Nov 2020",
       "end": "Mar 2021",
       "description": [
-        "Developed a progressive web app to integrate with Hakkei’s ergonomic keyboard"
+        "Developed a progressive web app that enabled key remapping for Hakkei’s ergonomic keyboard"
       ]
     }
   ]
