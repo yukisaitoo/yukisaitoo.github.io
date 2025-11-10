@@ -14,29 +14,14 @@ const LIMIT = 2; // max show 2
 
 export default async function Home() {
   return (
-    <article className="mt-8 flex flex-col gap-16 pb-16">
-      <section className="flex flex-col items-start gap-8 md:flex-row-reverse md:items-center md:justify-between">
-        <div className="flex flex-col items-center">
-          <Image
-            className="rounded-lg"
-            src="/yuki.jpeg"
-            alt="Photo of Yuki"
-            width={175}
-            height={175}
-            style={{ width: "175px", height: "175px" }}
-            priority
-          />
-          <div className="mt-2 flex w-fit items-center gap-2 rounded-full bg-green-500/20 px-2 py-1 pr-2.5">
-            <span className="block size-2 animate-pulse rounded-full bg-green-500"></span>
-            <span className="text-xs font-medium">Available for work</span>
-          </div>
-        </div>
+    <article className="mt-8 flex flex-col gap-14 pb-16">
+      <section className="flex flex-row items-start gap-8 max-md:flex-col-reverse max-md:items-center md:justify-between">
         <div className="flex flex-col">
           <h1 className="title text-5xl">
             hi yuki here <WavingEmoji emoji="👋" />
           </h1>
-          <p className="mt-4 font-light">Software Developer</p>
-          <p className="mt-2 font-light">
+          <p className="mt-4 font-medium">Software Developer</p>
+          <p className="mt-2 font-medium">
             I like to develop full-stack and explore local cafes.
           </p>
           <section className="mt-8 flex items-center gap-8">
@@ -49,16 +34,32 @@ export default async function Home() {
             <Socials />
           </section>
         </div>
+        <div className="flex flex-col items-center">
+          <Image
+            className="rounded-lg"
+            src="/yuki.jpeg"
+            alt="Photo of Yuki"
+            width={175}
+            height={175}
+            style={{ width: "175px", height: "175px" }}
+            priority
+          />
+          <div className="mt-2 flex w-fit items-center gap-2 rounded-full bg-green-500/20 px-2 py-1 pr-2.5">
+            <span className="block size-2 animate-pulse rounded-full bg-green-500"></span>
+            <span className="text-sm">Available for work</span>
+          </div>
+        </div>
       </section>
 
-      <section className="flex flex-col gap-8">
-        <div className="flex justify-between">
-          <h2 className="title text-2xl sm:text-3xl">most used technologies</h2>
-        </div>
+      <section className="flex flex-col gap-6">
+        <h2 className="title text-2xl sm:text-3xl">most used technologies</h2>
         <Skills />
       </section>
 
-      <Experience />
+      <section className="flex flex-col gap-6">
+        <h2 className="title text-2xl sm:text-3xl">experience</h2>
+        <Experience />
+      </section>
 
       {/* <section className="flex flex-col gap-8">
         <div className="flex justify-between">

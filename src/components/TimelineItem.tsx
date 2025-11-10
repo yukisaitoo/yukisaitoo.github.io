@@ -1,8 +1,8 @@
 import { Experience } from "@/lib/schemas";
 import Link from "next/link";
+import Icon from "./Icon";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
 import { Badge } from "./ui/Badge";
-import Icon from "./Icon";
 
 interface Props {
   experience: Experience;
@@ -41,33 +41,31 @@ export default function TimelineItem({ experience }: Props) {
           </Avatar>
         </div>
       )}
-      <div className="flex flex-1 flex-col justify-start gap-1">
-        {start && (
-          <time className="text-xs text-muted-foreground">
-            <span>{start}</span>
-            <span>{" - "}</span>
-            <span>{end ? end : "Present"}</span>
-          </time>
-        )}
-        <h2 className="font-semibold leading-none">{name}</h2>
-        {title && <p className="text-sm text-muted-foreground">{title}</p>}
+      <div className="flex flex-1 flex-col justify-start gap-1 pr-4">
+        <div className="flex justify-between">
+          <div>
+            <h2 className="font-semibold leading-none">{name}</h2>
+            {title && (
+              <p className="text-base text-muted-foreground">{title}</p>
+            )}
+          </div>
+          {start && (
+            <time className="text-sm text-muted-foreground">
+              <span>{start}</span>
+              <span>{" - "}</span>
+              <span>{end ? end : "Present"}</span>
+            </time>
+          )}
+        </div>
+
         {description && description.length === 1 && (
           <>
             {description.map((desc, i) => (
-              <div key={i} className="prose pr-8 text-sm dark:prose-invert">
+              <div key={i} className="prose pr-8 text-base dark:prose-invert">
                 {desc}
               </div>
             ))}
           </>
-        )}
-        {description && description.length !== 1 && (
-          <ul className="ml-4 list-outside list-disc">
-            {description.map((desc, i) => (
-              <li key={i} className="prose pr-8 text-sm dark:prose-invert">
-                {desc}
-              </li>
-            ))}
-          </ul>
         )}
       </div>
       {links && links.length > 0 && (

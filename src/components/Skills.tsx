@@ -10,9 +10,8 @@ export default function Skills() {
       {skills.map((skill) => {
         return (
           <div
-            className="flex h-full w-full flex-row space-x-3 rounded-xl bg-muted p-2 transition-colors duration-150 hover:border-border hover:bg-card"
+            className="flex h-full w-full flex-row space-x-3 rounded-xl border-2 border-transparent bg-muted p-1.5 transition duration-150 hover:border-foreground"
             key={skill.name}
-            style={{ transform: "none" }}
           >
             <div
               className="group flex aspect-square h-full w-auto items-center justify-center rounded-lg"
@@ -32,7 +31,7 @@ export default function Skills() {
               />
             </div>
             <div className="items-left flex flex-col justify-center">
-              <p className="text-sm">{skill.name}</p>
+              <p className="text-base">{skill.name}</p>
               <p className="text-xs text-muted-foreground">
                 {skill.description}
               </p>

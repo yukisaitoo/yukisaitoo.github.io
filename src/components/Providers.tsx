@@ -1,9 +1,7 @@
 "use client";
 
-import { ChatProvider } from "@/contexts/ChatContext";
-import { ThemeProvider, useTheme } from "next-themes";
+import { ThemeProvider } from "next-themes";
 import React from "react";
-import { Toaster } from "sonner";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -13,20 +11,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       defaultTheme="system"
       disableTransitionOnChange
     >
-      <ChatProvider>{children}</ChatProvider>
-      <ToastProvider />
+      {children}
     </ThemeProvider>
-  );
-}
-
-function ToastProvider() {
-  const { resolvedTheme } = useTheme();
-
-  return (
-    <Toaster
-      className="mt-12"
-      position="top-right"
-      theme={resolvedTheme === "dark" ? "dark" : "light"}
-    />
   );
 }
