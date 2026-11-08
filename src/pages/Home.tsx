@@ -16,6 +16,12 @@ const sections = [
   { id: "projects", label: "Projects" },
 ] as const satisfies readonly NavSection[];
 
+// The side nav also links to the intro at the top, which isn't a <Section>.
+const navSections: NavSection[] = [
+  { id: "about", label: "About" },
+  ...sections,
+];
+
 type SectionId = (typeof sections)[number]["id"];
 
 function Section({ id, children }: { id: SectionId; children: ReactNode }) {
@@ -33,8 +39,8 @@ function Section({ id, children }: { id: SectionId; children: ReactNode }) {
 export default function Home() {
   return (
     <article className={styles.article}>
-      <SectionNav sections={[...sections]} />
-      <section className={styles.hero}>
+      <SectionNav sections={navSections} />
+      <section id="about" className={styles.hero} aria-label="About">
         <div className={styles.header}>
           <div className={styles.identity}>
             <img
@@ -58,8 +64,7 @@ export default function Home() {
         </div>
 
         <p className={styles.summary}>
-          Right now I’m building full-stack features for Epic’s 300M+ MyChart
-          users.
+          Currently building full-stack features for Epic’s 300M+ MyChart users.
         </p>
 
         <div className={styles.actions}>

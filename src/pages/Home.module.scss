@@ -17,6 +17,9 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  // Matches the page's top padding, so the "About" nav link scrolls all the way
+  // back to the top instead of stopping with the name flush against the edge.
+  scroll-margin-top: 6rem;
 }
 
 // Identity block, then the badge on its own row, kept closer together than the
