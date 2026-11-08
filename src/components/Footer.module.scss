@@ -2,13 +2,12 @@
 
 .footer {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  padding-bottom: 8rem;
-
-  @include sm {
-    flex-direction: row-reverse;
-    justify-content: space-between;
-  }
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid color(border);
+  padding-block: 1.5rem 3rem;
+  @include text-sm;
+  color: color(muted-foreground);
 }

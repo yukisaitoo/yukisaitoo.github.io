@@ -1,113 +1,154 @@
 @use "../styles/tokens" as *;
-@use "../styles/animations";
 
+// Space between sections (3rem) stays about 3x the space under each section title
+// (1rem), so a title clearly belongs to the content below it, not the section above.
 .article {
-  margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 3.5rem;
-  padding-bottom: 4rem;
+  gap: 3rem;
+  padding-block: 4rem;
+
+  @include sm {
+    padding-top: 6rem;
+  }
 }
 
 .hero {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 2rem;
-
-  @include max-md {
-    flex-direction: column-reverse;
-    align-items: center;
-  }
-
-  @include md {
-    justify-content: space-between;
-  }
-}
-
-.intro {
-  display: flex;
-  flex-direction: column;
-}
-
-.heading {
-  @include text-5xl;
-}
-
-.role {
-  margin-top: 1rem;
-  font-weight: 500;
-}
-
-.tagline {
-  margin-top: 0.5rem;
-  font-weight: 500;
-}
-
-.actions {
-  margin-top: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
-.resumeLabel {
-  font-weight: 600;
-}
-
-.resumeIcon {
-  margin-left: 0.5rem;
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.portrait {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.photo {
-  // Fixed size: the reset's `height: auto` would otherwise defer to the image's own shape.
-  width: 175px;
-  height: 175px;
-  border-radius: $radius-lg;
-}
-
-.status {
-  margin-top: 0.5rem;
-  display: flex;
-  width: fit-content;
-  align-items: center;
-  gap: 0.5rem;
-  border-radius: $radius-full;
-  background-color: rgb(34 197 94 / 0.2);
-  padding: 0.25rem 0.625rem 0.25rem 0.5rem;
-}
-
-.statusDot {
-  display: block;
-  width: 0.5rem;
-  height: 0.5rem;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  border-radius: $radius-full;
-  background-color: $green-500;
-}
-
-.statusText {
-  @include text-sm;
-}
-
-.section {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-.sectionTitle {
-  @include text-2xl;
+// Identity block, then the badge on its own row, kept closer together than the
+// hero's other pieces so they read as one unit.
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.875rem;
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+// The photo is sized off the name + title lines next to it, so the two form one
+// block: name line (2rem) + title line (1.25rem on phones, 1.5rem wider), plus
+// 0.25rem so it overhangs the text by a couple of pixels top and bottom.
+// If either line's size changes, change this to match.
+.photo {
+  width: 3.5rem;
+  height: 3.5rem;
+  flex-shrink: 0;
+  border-radius: $radius-full;
+  object-fit: cover;
 
   @include sm {
-    @include text-3xl;
+    width: 3.75rem;
+    height: 3.75rem;
   }
+}
+
+.name {
+  @include text-2xl;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+// Slightly smaller on phones so the title stays on one line and the block stays square.
+.role {
+  @include text-sm;
+  color: color(muted-foreground);
+
+  @include sm {
+    @include text-base;
+  }
+}
+
+.summary {
+  color: color(foreground, 0.85);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.resumeIcon {
+  margin-left: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+// Borderless pill with green text. Text is darker green on light backgrounds and
+// lighter green on dark ones, so it stays readable in both themes.
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: $radius-full;
+  background-color: rgb(34 197 94 / 0.14);
+  padding: 0.25rem 0.75rem 0.25rem 0.625rem;
+  @include text-xs;
+  font-weight: 500;
+  // Contrast on the tint: 6.3:1 here, 9.3:1 in dark mode (WCAG AA needs 4.5:1).
+  // Lighter greens like #15803d fall just short (4.45:1).
+  color: #166534;
+
+  :global(.dark) & {
+    background-color: rgb(34 197 94 / 0.16);
+    color: #4ade80;
+  }
+}
+
+// Solid dot with a ring that grows and fades behind it, like a "live" indicator.
+.statusDot {
+  position: relative;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  flex-shrink: 0;
+  border-radius: $radius-full;
+  background-color: $green-500;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-color: inherit;
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  // Visitors who've asked their OS for less motion get a still dot.
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      animation: none;
+    }
+  }
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  // Leaves a little room above the heading when a nav link jumps here.
+  scroll-margin-top: 2rem;
+}
+
+.sectionTitle {
+  @include text-sm;
+  font-weight: 600;
+  color: color(muted-foreground);
 }

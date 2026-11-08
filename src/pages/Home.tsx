@@ -1,61 +1,89 @@
-import Experience from "@/components/Experience.tsx";
 import { FileDown } from "@/components/icons";
+import Projects from "@/components/Projects.tsx";
+import SectionNav, { type NavSection } from "@/components/SectionNav.tsx";
 import Skills from "@/components/Skills.tsx";
 import Socials from "@/components/Socials.tsx";
+import Timeline from "@/components/Timeline.tsx";
 import { Button } from "@/components/ui/Button.tsx";
-import WavingEmoji from "@/components/WavingEmoji.tsx";
+import { career } from "@/data/career.ts";
+import type { ReactNode } from "react";
 import styles from "./Home.module.scss";
+
+// One list drives both the side nav and the section ids, so they can't drift apart.
+const sections = [
+  { id: "skills", label: "Skills" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+] as const satisfies readonly NavSection[];
+
+type SectionId = (typeof sections)[number]["id"];
+
+function Section({ id, children }: { id: SectionId; children: ReactNode }) {
+  const { label } = sections.find((s) => s.id === id)!;
+  return (
+    <section id={id} className={styles.section} aria-labelledby={`${id}-title`}>
+      <h2 id={`${id}-title`} className={styles.sectionTitle}>
+        {label}
+      </h2>
+      {children}
+    </section>
+  );
+}
 
 export default function Home() {
   return (
     <article className={styles.article}>
+      <SectionNav sections={[...sections]} />
       <section className={styles.hero}>
-        <div className={styles.intro}>
-          <h1 className={`title ${styles.heading}`}>
-            hi yuki here <WavingEmoji emoji="👋" />
-          </h1>
-          <p className={styles.role}>Software Developer</p>
-          <p className={styles.tagline}>
-            I like to develop full-stack and explore local cafes.
-          </p>
-          <section className={styles.actions}>
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline">
-                <span className={styles.resumeLabel}>Resume</span>
-                <FileDown className={styles.resumeIcon} />
-              </Button>
-            </a>
-            <Socials />
-          </section>
-        </div>
-        <div className={styles.portrait}>
-          <img
-            className={styles.photo}
-            src="/yuki.webp"
-            alt="Yuki Saito"
-            width={175}
-            height={175}
-            decoding="async"
-            fetchPriority="high"
-          />
-          <div className={styles.status}>
-            <span className={styles.statusDot}></span>
-            <span className={styles.statusText}>Available for work</span>
+        <div className={styles.header}>
+          <div className={styles.identity}>
+            <img
+              className={styles.photo}
+              src="/yuki.webp"
+              alt="Yuki Saito"
+              width={60}
+              height={60}
+              decoding="async"
+              fetchPriority="high"
+            />
+            <div>
+              <h1 className={styles.name}>Yuki Saito</h1>
+              <p className={styles.role}>Software Developer at Epic Systems</p>
+            </div>
           </div>
+          <p className={styles.status}>
+            <span className={styles.statusDot} aria-hidden="true" />
+            Open to new roles
+          </p>
+        </div>
+
+        <p className={styles.summary}>
+          Right now I’m building full-stack features for Epic’s 300M+ MyChart
+          users.
+        </p>
+
+        <div className={styles.actions}>
+          <Button variant="outline" asChild>
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              Resume
+              <FileDown className={styles.resumeIcon} aria-hidden="true" />
+            </a>
+          </Button>
+          <Socials />
         </div>
       </section>
 
-      <section className={styles.section}>
-        <h2 className={`title ${styles.sectionTitle}`}>
-          most used technologies
-        </h2>
+      <Section id="skills">
         <Skills />
-      </section>
+      </Section>
 
-      <section className={styles.section}>
-        <h2 className={`title ${styles.sectionTitle}`}>experience</h2>
-        <Experience />
-      </section>
+      <Section id="experience">
+        <Timeline experience={career} />
+      </Section>
+
+      <Section id="projects">
+        <Projects />
+      </Section>
     </article>
   );
 }

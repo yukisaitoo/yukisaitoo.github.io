@@ -48,14 +48,6 @@ $bp-lg: 1024px;
   font-size: 1.5rem;
   line-height: 2rem;
 }
-@mixin text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-@mixin text-5xl {
-  font-size: 3rem;
-  line-height: 1;
-}
 
 // Radii (driven by --radius)
 $radius-lg: var(--radius);
@@ -76,9 +68,6 @@ $radius-full: 9999px;
 $green-500: #22c55e;
 $orange-300: #fdba74;
 $indigo-500: #6366f1;
-$gray-200: #e5e7eb;
-$prose-body: #374151;
-$prose-body-invert: #d1d5db;
 
 // Shadows
 $shadow:

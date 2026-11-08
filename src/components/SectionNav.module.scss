@@ -1,0 +1,42 @@
+@use "../styles/tokens" as *;
+
+// Desktop only: sits in the empty space left of the 40rem content column and stays
+// put while the page scrolls. Hidden below lg, where there's no room beside the text.
+.nav {
+  display: none;
+
+  @include lg {
+    display: block;
+    position: fixed;
+    // Lines up with the top of the hero (the page's top padding).
+    top: 6rem;
+    // Half the content width (20rem) + nav width (8rem) + a 3rem gap, left of center.
+    left: max(1rem, calc(50% - 31rem));
+    width: 8rem;
+  }
+}
+
+// A thin rail on the left; the current section's segment is drawn darker.
+.list {
+  border-left: 1px solid color(border);
+}
+
+.link {
+  display: block;
+  margin-left: -1px;
+  border-left: 1px solid transparent;
+  padding: 0.25rem 0 0.25rem 0.875rem;
+  @include text-sm;
+  color: color(muted-foreground);
+  @include transition-colors;
+
+  &:hover {
+    color: color(foreground);
+  }
+
+  &[aria-current] {
+    border-left-color: color(foreground);
+    color: color(foreground);
+    font-weight: 500;
+  }
+}

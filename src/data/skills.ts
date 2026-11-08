@@ -2,20 +2,23 @@ import type { Skill } from "@/lib/types.ts";
 
 export const skills: Skill[] = [
   {
-    name: "React.js",
-    description: "JavaScript Library",
-    icon: "react.svg",
-    iconBg: "#11282F",
-  },
-  {
-    name: "Typescript",
+    name: "TypeScript",
     description: "JavaScript but better",
     icon: "typescript.svg",
     iconBg: "",
   },
   {
+    name: "React",
+    icon: "react.svg",
+    iconBg: "#11282F",
+  },
+  {
+    name: "C# / .NET",
+    icon: "csharp.svg",
+    iconBg: "",
+  },
+  {
     name: "Sass",
-    description: "CSS with superpowers",
     icon: "sass.svg",
     iconBg: "",
   },
@@ -24,17 +27,5 @@ export const skills: Skill[] = [
     description: "Database language",
     icon: "m.png",
     iconBg: "#f4e067",
-  },
-  {
-    name: "C#",
-    description: "OOP language",
-    icon: "csharp.svg",
-    iconBg: "",
-  },
-  {
-    name: "Java",
-    description: "OOP language",
-    icon: "java.svg",
-    iconBg: "#F5F5F5",
   },
 ];

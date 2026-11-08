@@ -30,9 +30,9 @@
   inset: auto;
   margin: 0;
 
-  // Just below the button, right edges lined up.
+  // Just above the button (it sits in the footer), right edges lined up.
   position-anchor: --theme-menu;
-  top: calc(anchor(bottom) + 4px);
+  bottom: calc(anchor(top) + 4px);
   right: anchor(right);
 
   min-width: 8rem;
@@ -44,12 +44,13 @@
   box-shadow: $shadow;
 }
 
-// Older browsers without anchor positioning: pin to the top-right corner. Works because
-// the header (and so the button) is sticky at the top of the screen.
+// Older browsers without anchor positioning: fall back to the browser's default,
+// centered on screen. Less tidy, but always visible.
 @supports not (anchor-name: --a) {
   .menu {
-    top: 3.5rem;
-    right: 1rem;
+    inset: 0;
+    margin: auto;
+    height: fit-content;
   }
 }
 

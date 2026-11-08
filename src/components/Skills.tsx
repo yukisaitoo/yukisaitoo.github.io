@@ -3,9 +3,9 @@ import styles from "./Skills.module.scss";
 
 export default function Skills() {
   return (
-    <div className={styles.grid}>
+    <ul className={styles.grid}>
       {skills.map((skill) => (
-        <div className={styles.tile} key={skill.name}>
+        <li className={styles.tile} key={skill.name}>
           <div
             className={styles.iconBox}
             style={{
@@ -16,18 +16,21 @@ export default function Skills() {
             <img
               className={styles.icon}
               src={`/${skill.icon}`}
-              alt={skill.name}
+              alt=""
               width={40}
               height={40}
               decoding="async"
             />
           </div>
+          {/* Flex column centered vertically, so a tile with no subtitle centers its name. */}
           <div className={styles.text}>
             <p className={styles.name}>{skill.name}</p>
-            <p className={styles.description}>{skill.description}</p>
+            {skill.description && (
+              <p className={styles.description}>{skill.description}</p>
+            )}
           </div>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

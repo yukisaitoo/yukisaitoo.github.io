@@ -1,8 +1,5 @@
-.content {
-  padding: 0;
-}
-
 .list {
-  margin-left: 2.5rem;
-  border-left-width: 1px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }

@@ -1,0 +1,93 @@
+@use "../styles/tokens" as *;
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.name {
+  font-weight: 600;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+}
+
+.arrow {
+  width: 1rem;
+  height: 1rem;
+  color: color(muted-foreground);
+}
+
+.fork,
+.stack {
+  @include text-sm;
+  color: color(muted-foreground);
+}
+
+.description {
+  color: color(foreground, 0.85);
+}
+
+// Floating screenshot that follows the cursor. Position comes from --x/--y, set
+// in Projects.tsx; it's vertically centered on the cursor.
+.preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  width: 22rem;
+  overflow: hidden;
+  border: 1px solid color(border);
+  border-radius: $radius-lg;
+  background-color: color(background);
+  box-shadow:
+    0 10px 30px -10px rgb(0 0 0 / 0.25),
+    0 4px 10px -6px rgb(0 0 0 / 0.15);
+  pointer-events: none;
+  translate: var(--x, 0) calc(var(--y, 0) - 50%);
+  opacity: 0;
+  scale: 0.96;
+  transition:
+    opacity 150ms $ease,
+    scale 150ms $ease;
+
+  &[data-visible="true"] {
+    opacity: 1;
+    scale: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    scale: 1;
+    transition: none;
+  }
+}
+
+// Every preview is in the DOM so it downloads up front (display: none still
+// loads an image or a preload="auto" video), but only the active one shows, so
+// the card is exactly that one's height. object-fit: cover handles cropping
+// when a project sets previewAspect.
+.media {
+  display: none;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+
+  &[data-active="true"] {
+    display: block;
+  }
+}
