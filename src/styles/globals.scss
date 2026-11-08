@@ -1,5 +1,7 @@
 @use "sass:meta";
 @use "tokens" as *;
+@use "@fontsource-variable/inter";
+@use "@fontsource/calistoga/400.css" as *;
 
 // Global styles and ui primitives live in cascade layers so feature CSS Modules (unlayered)
 // always win, regardless of stylesheet order.

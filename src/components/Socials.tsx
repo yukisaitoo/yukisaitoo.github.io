@@ -1,9 +1,6 @@
-import data from "@/data/socials.json";
-import { socialSchema } from "@/lib/schemas.ts";
+import { socials } from "@/data/socials.ts";
 import Icon from "./Icon.tsx";
 import styles from "./Socials.module.scss";
-
-const socials = socialSchema.parse(data).socials;
 
 export default function Socials() {
   return (

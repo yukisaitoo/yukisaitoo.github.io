@@ -1,4 +1,4 @@
-import type { Experience } from "@/lib/schemas.ts";
+import type { Experience } from "@/lib/types.ts";
 import Icon from "./Icon.tsx";
 import styles from "./TimelineItem.module.scss";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar.tsx";
@@ -48,16 +48,16 @@ export default function TimelineItem({ experience }: Props) {
           )}
         </div>
 
-        {description?.map((desc, i) => (
-          <div key={i} className={styles.description}>
+        {description?.map((desc) => (
+          <div key={desc} className={styles.description}>
             {desc}
           </div>
         ))}
       </div>
       {links && links.length > 0 && (
         <div className={styles.links}>
-          {links.map((link, idx) => (
-            <a href={link.href} key={idx}>
+          {links.map((link) => (
+            <a href={link.href} key={link.href}>
               <Badge title={link.name} className={styles.badge}>
                 <Icon
                   name={link.icon}

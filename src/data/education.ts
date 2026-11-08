@@ -1,0 +1,17 @@
+import type { Experience } from "@/lib/types.ts";
+
+export const education: Experience[] = [
+  {
+    name: "San Jose State University",
+    href: "https://www.sjsu.edu/",
+    title: "BS in Software Engineering",
+    logo: "/sjsu.png",
+    start: "Sep 2019",
+    end: "Apr 2023",
+    description: [
+      "Magna Cum Laude Graduate",
+      "President's and Dean's Scholar",
+      "Engineering Fraternity Theta Tau Member",
+    ],
+  },
+];

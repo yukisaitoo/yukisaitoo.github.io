@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && node scripts/spa-fallback.mjs",
+    "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "lint": "oxlint",
     "format": "prettier --write .",
     "preview": "vite preview"
@@ -22,8 +22,7 @@
     "next-themes": "^0.4.6",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-router": "^8.5.1",
-    "zod": "^4.6.7"
+    "react-router": "^8.5.1"
   },
   "devDependencies": {
     "@types/node": "^24.19.2",

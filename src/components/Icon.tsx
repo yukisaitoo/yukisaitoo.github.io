@@ -1,5 +1,5 @@
 import type { LucideProps } from "lucide-react";
-import type { IconName } from "@/lib/schemas.ts";
+import type { IconName } from "@/lib/types.ts";
 import { Github, Linkedin, Mail } from "./icons";
 
 const icons = {

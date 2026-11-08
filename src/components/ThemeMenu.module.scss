@@ -1,0 +1,77 @@
+@use "../styles/tokens" as *;
+
+.placeholder,
+.system,
+.light,
+.dark {
+  width: 1rem;
+  height: 1rem;
+}
+
+.system {
+  color: color(muted-foreground);
+}
+
+.light {
+  color: $orange-300;
+}
+
+.dark {
+  color: $indigo-500;
+}
+
+// Names the button so the menu can position itself against it (CSS anchor positioning).
+.trigger {
+  anchor-name: --theme-menu;
+}
+
+.menu {
+  // Browsers center popovers on screen by default; undo that.
+  inset: auto;
+  margin: 0;
+
+  // Just below the button, right edges lined up.
+  position-anchor: --theme-menu;
+  top: calc(anchor(bottom) + 4px);
+  right: anchor(right);
+
+  min-width: 8rem;
+  border: 1px solid color(border);
+  border-radius: $radius-md;
+  background-color: color(background);
+  padding: 0.25rem;
+  color: color(foreground);
+  box-shadow: $shadow;
+}
+
+// Older browsers without anchor positioning: pin to the top-right corner. Works because
+// the header (and so the button) is sticky at the top of the screen.
+@supports not (anchor-name: --a) {
+  .menu {
+    top: 3.5rem;
+    right: 1rem;
+  }
+}
+
+.item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: $radius-md;
+  padding: 0.375rem 0.5rem;
+  @include text-sm;
+  text-align: start;
+  @include transition-colors;
+
+  &:hover,
+  &:focus-visible {
+    background-color: color(accent);
+    color: color(accent-foreground);
+    outline: none;
+  }
+}
+
+.check {
+  margin-left: auto;
+}

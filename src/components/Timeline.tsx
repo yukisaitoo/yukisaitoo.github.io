@@ -1,4 +1,4 @@
-import type { Experience } from "@/lib/schemas.ts";
+import type { Experience } from "@/lib/types.ts";
 import styles from "./Timeline.module.scss";
 import TimelineItem from "./TimelineItem.tsx";
 import { Card, CardContent } from "./ui/Card.tsx";
@@ -12,8 +12,8 @@ export default function Timeline({ experience }: Props) {
     <Card>
       <CardContent className={styles.content}>
         <ul className={styles.list}>
-          {experience.map((exp, id) => (
-            <TimelineItem key={id} experience={exp} />
+          {experience.map((exp) => (
+            <TimelineItem key={`${exp.name}-${exp.start}`} experience={exp} />
           ))}
         </ul>
       </CardContent>

@@ -1,19 +1,23 @@
-import "@fontsource-variable/inter";
-import "@fontsource/calistoga/400.css";
 import "./styles/globals.scss";
 
 import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
 import App from "./App.tsx";
-import Providers from "./components/Providers.tsx";
 
-createRoot(document.getElementById("root")!).render(
+const container = document.getElementById("root")!;
+const app = (
   <StrictMode>
-    <Providers>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Providers>
-  </StrictMode>,
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>
 );
+
+// Built pages arrive prerendered, so React adopts the existing HTML (hydration).
+// In dev the root is empty, so React renders from scratch.
+if (container.hasChildNodes()) {
+  hydrateRoot(container, app);
+} else {
+  createRoot(container).render(app);
+}

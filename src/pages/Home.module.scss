@@ -68,6 +68,9 @@
 }
 
 .photo {
+  // Fixed size: the reset's `height: auto` would otherwise defer to the image's own shape.
+  width: 175px;
+  height: 175px;
   border-radius: $radius-lg;
 }
 

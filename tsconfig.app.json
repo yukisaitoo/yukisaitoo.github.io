@@ -5,7 +5,6 @@
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "module": "esnext",
     "types": ["vite/client"],
-    "allowArbitraryExtensions": true,
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -13,7 +12,6 @@
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
-    "resolveJsonModule": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {

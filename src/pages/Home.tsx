@@ -31,13 +31,12 @@ export default function Home() {
         <div className={styles.portrait}>
           <img
             className={styles.photo}
-            src="/yuki.jpeg"
-            alt="Photo of Yuki"
+            src="/yuki.webp"
+            alt="Yuki Saito"
             width={175}
             height={175}
             decoding="async"
             fetchPriority="high"
-            style={{ color: "transparent", width: "175px", height: "175px" }}
           />
           <div className={styles.status}>
             <span className={styles.statusDot}></span>

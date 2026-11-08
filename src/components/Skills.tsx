@@ -1,8 +1,5 @@
-import data from "@/data/skills.json";
-import { skillSchema } from "@/lib/schemas.ts";
+import { skills } from "@/data/skills.ts";
 import styles from "./Skills.module.scss";
-
-const skills = skillSchema.parse(data).skills;
 
 export default function Skills() {
   return (
@@ -23,8 +20,6 @@ export default function Skills() {
               width={40}
               height={40}
               decoding="async"
-              fetchPriority="high"
-              style={{ color: "transparent", width: "40px", height: "40px" }}
             />
           </div>
           <div className={styles.text}>

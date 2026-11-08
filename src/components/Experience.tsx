@@ -1,12 +1,8 @@
-import careerData from "@/data/career.json";
-import educationData from "@/data/education.json";
-import { careerSchema, educationSchema } from "@/lib/schemas.ts";
+import { career } from "@/data/career.ts";
+import { education } from "@/data/education.ts";
 import styles from "./Experience.module.scss";
 import Timeline from "./Timeline.tsx";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/Tabs.tsx";
-
-const career = careerSchema.parse(careerData).career;
-const education = educationSchema.parse(educationData).education;
 
 export default function Experience() {
   return (

@@ -45,10 +45,14 @@
 }
 
 .icon {
+  // Fixed 40x40 box even for non-square icons (csharp.svg is 2222x2500); the
+  // reset's `height: auto` would otherwise make those taller.
+  width: 40px;
+  height: 40px;
   border-radius: $radius-sm;
   transition: all $duration $ease;
 
-  .iconBox:hover & {
+  .tile:hover & {
     transform: scale(1.05);
   }
 }

@@ -1,0 +1,19 @@
+import type { IconLink } from "@/lib/types.ts";
+
+export const socials: IconLink[] = [
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/yuki-saito/",
+    icon: "linkedin",
+  },
+  {
+    name: "GitHub",
+    href: "https://github.com/yukisaitoo",
+    icon: "github",
+  },
+  {
+    name: "Email",
+    href: "mailto:saitoyukisaito@gmail.com",
+    icon: "mail",
+  },
+];
