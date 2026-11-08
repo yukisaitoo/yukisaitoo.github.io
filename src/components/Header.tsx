@@ -1,29 +1,13 @@
-import Link from "next/link";
-import ThemeToggle from "./ThemeToggle";
-
-const navLinks = [
-  {
-    name: "home",
-    href: "/",
-  },
-  // {
-  //   name: "projects",
-  //   href: "/projects",
-  // },
-];
+import styles from "./Header.module.scss";
+import ThemeToggle from "./ThemeToggle.tsx";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 bg-background/75 py-4 backdrop-blur-sm">
-      <nav className="flex items-center justify-between">
-        <ul className="flex gap-4 sm:gap-8">
-          {/* {navLinks.map((nav, id) => (
-            <li key={id} className="link">
-              <Link href={nav.href}>{nav.name}</Link>
-            </li>
-          ))} */}
-        </ul>
-        <div className="flex gap-0 sm:gap-4">
+    <header className={styles.header}>
+      <nav className={styles.nav}>
+        {/* Nav links go here; the empty list keeps the toggle right-aligned. */}
+        <ul className={styles.links}></ul>
+        <div className={styles.actions}>
           <ThemeToggle />
         </div>
       </nav>

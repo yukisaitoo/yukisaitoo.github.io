@@ -1,8 +1,8 @@
-import { Experience } from "@/lib/schemas";
-import Link from "next/link";
-import Icon from "./Icon";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
-import { Badge } from "./ui/Badge";
+import type { Experience } from "@/lib/schemas.ts";
+import Icon from "./Icon.tsx";
+import styles from "./TimelineItem.module.scss";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar.tsx";
+import { Badge } from "./ui/Badge.tsx";
 
 interface Props {
   experience: Experience;
@@ -12,45 +12,35 @@ export default function TimelineItem({ experience }: Props) {
   const { name, href, title, logo, start, end, description, links } =
     experience;
 
+  const avatar = (
+    <Avatar className={styles.avatar}>
+      <AvatarImage src={logo} alt={name} className={styles.avatarImage} />
+      <AvatarFallback>{name[0]}</AvatarFallback>
+    </Avatar>
+  );
+
   return (
-    <li className="relative ml-10 py-4">
-      {!!href ? (
-        <Link
+    <li className={styles.item}>
+      {href ? (
+        <a
           href={href}
           target="_blank"
-          className="absolute -left-16 top-4 flex items-center justify-center rounded-full bg-white"
+          rel="noopener noreferrer"
+          className={styles.logo}
         >
-          <Avatar className="size-12 border">
-            <AvatarImage
-              src={logo}
-              alt={name}
-              className="bg-background object-contain"
-            />
-            <AvatarFallback>{name[0]}</AvatarFallback>
-          </Avatar>
-        </Link>
+          {avatar}
+        </a>
       ) : (
-        <div className="absolute -left-16 top-4 flex items-center justify-center rounded-full bg-white">
-          <Avatar className="size-12 border">
-            <AvatarImage
-              src={logo}
-              alt={name}
-              className="bg-background object-contain"
-            />
-            <AvatarFallback>{name[0]}</AvatarFallback>
-          </Avatar>
-        </div>
+        <div className={styles.logo}>{avatar}</div>
       )}
-      <div className="flex flex-1 flex-col justify-start gap-1 pr-4">
-        <div className="flex justify-between">
+      <div className={styles.body}>
+        <div className={styles.header}>
           <div>
-            <h2 className="font-semibold leading-none">{name}</h2>
-            {title && (
-              <p className="text-base text-muted-foreground">{title}</p>
-            )}
+            <h2 className={styles.name}>{name}</h2>
+            {title && <p className={styles.title}>{title}</p>}
           </div>
           {start && (
-            <time className="text-sm text-muted-foreground">
+            <time className={styles.dates}>
               <span>{start}</span>
               <span>{" - "}</span>
               <span>{end ? end : "Present"}</span>
@@ -58,25 +48,25 @@ export default function TimelineItem({ experience }: Props) {
           )}
         </div>
 
-        {description && description.length === 1 && (
-          <>
-            {description.map((desc, i) => (
-              <div key={i} className="prose pr-8 text-base dark:prose-invert">
-                {desc}
-              </div>
-            ))}
-          </>
-        )}
+        {description?.map((desc, i) => (
+          <div key={i} className={styles.description}>
+            {desc}
+          </div>
+        ))}
       </div>
       {links && links.length > 0 && (
-        <div className="mt-2 flex flex-row flex-wrap items-start gap-2">
-          {links?.map((link, idx) => (
-            <Link href={link.href} key={idx}>
-              <Badge key={idx} title={link.name} className="flex gap-2">
-                <Icon name={link.icon} aria-hidden="true" className="size-3" />
+        <div className={styles.links}>
+          {links.map((link, idx) => (
+            <a href={link.href} key={idx}>
+              <Badge title={link.name} className={styles.badge}>
+                <Icon
+                  name={link.icon}
+                  aria-hidden="true"
+                  className={styles.badgeIcon}
+                />
                 {link.name}
               </Badge>
-            </Link>
+            </a>
           ))}
         </div>
       )}

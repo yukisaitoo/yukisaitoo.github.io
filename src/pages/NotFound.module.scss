@@ -1,0 +1,88 @@
+@use "../styles/tokens" as *;
+
+.article {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-bottom: 4rem;
+}
+
+.container {
+  min-height: 100%;
+  padding-inline: 1rem;
+
+  @include sm {
+    padding: 6rem 1.5rem;
+  }
+
+  @include md {
+    display: grid;
+    place-items: center;
+  }
+
+  @include lg {
+    padding-inline: 2rem;
+  }
+}
+
+.inner {
+  margin-inline: auto;
+  max-width: max-content;
+}
+
+.section {
+  @include sm {
+    display: flex;
+  }
+}
+
+.code {
+  color: color(muted-foreground);
+}
+
+.body {
+  @include sm {
+    margin-left: 1.5rem;
+  }
+}
+
+.message {
+  @include sm {
+    border-left-width: 1px;
+    border-color: $gray-200;
+    padding-left: 1.5rem;
+  }
+}
+
+.heading {
+  @include sm {
+    @include text-5xl;
+  }
+}
+
+.hint {
+  margin-top: 0.25rem;
+  @include text-base;
+  color: color(muted-foreground);
+}
+
+.actions {
+  margin-top: 2.5rem;
+  display: flex;
+
+  > :not([hidden]) ~ :not([hidden]) {
+    margin-left: 0.75rem;
+  }
+
+  @include sm {
+    border-left-width: 1px;
+    border-color: transparent;
+    padding-left: 1.5rem;
+  }
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}

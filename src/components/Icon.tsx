@@ -1,21 +1,18 @@
-import React, { lazy, Suspense } from 'react';
-import { LucideProps } from 'lucide-react';
-import dynamicIconImports from 'lucide-react/dynamicIconImports';
+import type { LucideProps } from "lucide-react";
+import type { IconName } from "@/lib/schemas.ts";
+import { Github, Linkedin, Mail } from "./icons";
 
-const fallback = <div style={{ background: '#ddd', width: 24, height: 24 }}/>
+const icons = {
+  github: Github,
+  linkedin: Linkedin,
+  mail: Mail,
+} satisfies Record<IconName, unknown>;
 
-interface IconProps extends Omit<LucideProps, 'ref'> {
-  name: keyof typeof dynamicIconImports;
+interface IconProps extends Omit<LucideProps, "ref"> {
+  name: IconName;
 }
 
-const Icon = ({ name, ...props }: IconProps) => {
-  const LucideIcon = lazy(dynamicIconImports[name]);
-
-  return (
-    <Suspense fallback={fallback}>
-      <LucideIcon {...props} />
-    </Suspense>
-  );
+export default function Icon({ name, ...props }: IconProps) {
+  const LucideIcon = icons[name];
+  return <LucideIcon {...props} />;
 }
-
-export default Icon

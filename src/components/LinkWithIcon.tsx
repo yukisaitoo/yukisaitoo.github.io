@@ -1,9 +1,10 @@
-import Link from "next/link";
-import React from "react";
+import type { ReactNode } from "react";
+import { Link } from "react-router";
+import styles from "./LinkWithIcon.module.scss";
 
 type LinkWithIconProps = {
   href: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   position: "left" | "right";
   text?: string;
 };
@@ -15,7 +16,7 @@ export default function LinkWithIcon({
   text,
 }: LinkWithIconProps) {
   return (
-    <Link href={href} className="link flex items-center gap-2 font-light">
+    <Link to={href} className={`link ${styles.link}`}>
       {position === "left" && icon}
       <span>{text}</span>
       {position === "right" && icon}

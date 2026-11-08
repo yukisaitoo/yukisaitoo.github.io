@@ -1,0 +1,61 @@
+@use "../../styles/tokens" as *;
+
+// Primitives sit in the `components` layer so styles passed in via
+// className (unlayered) always override them.
+@layer components {
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    border-radius: $radius-md;
+    @include text-sm;
+    font-weight: 500;
+    @include transition-colors;
+
+    &:focus-visible {
+      @include focus-ring(1px);
+    }
+
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
+
+  .variant-default {
+    background-color: color(primary);
+    color: color(primary-foreground);
+    box-shadow: $shadow;
+
+    &:hover {
+      background-color: color(primary, 0.9);
+    }
+  }
+
+  .variant-outline {
+    border: 1px solid color(input);
+    background-color: color(background);
+    box-shadow: $shadow-sm;
+
+    &:hover {
+      background-color: color(accent);
+      color: color(accent-foreground);
+    }
+  }
+
+  .variant-ghost:hover {
+    background-color: color(accent);
+    color: color(accent-foreground);
+  }
+
+  .size-default {
+    height: 2.25rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .size-icon {
+    height: 2.25rem;
+    width: 2.25rem;
+  }
+}

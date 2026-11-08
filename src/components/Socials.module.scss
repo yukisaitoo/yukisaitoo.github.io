@@ -1,0 +1,19 @@
+@use "../styles/tokens" as *;
+
+.socials {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.link {
+  color: color(muted-foreground);
+
+  &:hover {
+    color: color(foreground);
+  }
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}

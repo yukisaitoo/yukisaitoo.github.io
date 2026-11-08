@@ -1,10 +1,12 @@
-import dynamicIconImports from "lucide-react/dynamicIconImports";
 import { z } from "zod";
+
+export const iconNames = ["github", "linkedin", "mail"] as const;
+export type IconName = (typeof iconNames)[number];
 
 const iconLink = z.object({
   name: z.string(),
-  href: z.string().url(),
-  icon: z.custom<keyof typeof dynamicIconImports>(),
+  href: z.string(),
+  icon: z.enum(iconNames),
 });
 export type IconLink = z.infer<typeof iconLink>;
 
@@ -15,17 +17,6 @@ const skill = z.object({
   iconBg: z.string(),
 });
 export type Skill = z.infer<typeof skill>;
-
-const project = z.object({
-  name: z.string(),
-  description: z.string(),
-  href: z.string().url().optional(),
-  image: z.string().optional(),
-  tags: z.array(z.string()),
-  links: z.array(iconLink),
-});
-export const projectSchema = z.object({ projects: z.array(project) });
-export type Project = z.infer<typeof project>;
 
 const experience = z.object({
   name: z.string(),

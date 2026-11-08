@@ -1,23 +1,24 @@
 import data from "@/data/socials.json";
-import { socialSchema } from "@/lib/schemas";
-import Icon from "./Icon";
+import { socialSchema } from "@/lib/schemas.ts";
+import Icon from "./Icon.tsx";
+import styles from "./Socials.module.scss";
+
+const socials = socialSchema.parse(data).socials;
 
 export default function Socials() {
-  const socials = socialSchema.parse(data).socials;
-
   return (
-    <section className="flex gap-6">
+    <section className={styles.socials}>
       {socials.map((item) => (
         <div key={item.name}>
           <a
             href={item.href}
             target="_blank"
-            className="text-muted-foreground hover:text-foreground"
+            className={styles.link}
             rel="noopener noreferrer"
             title={item.name}
           >
             <span className="sr-only">{item.name}</span>
-            <Icon name={item.icon} aria-hidden="true" className="size-5" />
+            <Icon name={item.icon} aria-hidden="true" className={styles.icon} />
           </a>
         </div>
       ))}
