@@ -23,16 +23,6 @@
     }
   }
 
-  .variant-default {
-    background-color: color(primary);
-    color: color(primary-foreground);
-    box-shadow: $shadow;
-
-    &:hover {
-      background-color: color(primary, 0.9);
-    }
-  }
-
   .variant-outline {
     border: 1px solid color(input);
     background-color: color(background);

@@ -3,7 +3,7 @@
  * Copyright (c) Lucide Contributors 2022, portions Cole Bemis 2013-2022 / Feather).
  *
  * Lucide 1.x dropped brand icons (GitHub, LinkedIn) over trademark concerns and
- * redrew FileDown/Mail slightly. These keep the site pixel-identical while still
+ * redrew FileDown/Mail slightly. These keep the original shapes while still
  * rendering through the current lucide-react runtime.
  */
 import { createLucideIcon } from "lucide-react";

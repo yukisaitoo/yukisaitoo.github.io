@@ -8,7 +8,7 @@
   align-items: start;
 }
 
-// Phones: bullets and stack use the full width under the logo instead of staying
+// Phones: summary and stack use the full width under the logo instead of staying
 // indented, which would squeeze lines to ~28 characters. Wider screens indent them.
 .summary,
 .stack {
@@ -29,13 +29,9 @@
   background-color: #fff;
 }
 
-.avatar {
+.logoImage {
   width: 100%;
   height: 100%;
-  border-radius: 0;
-}
-
-.avatarImage {
   object-fit: contain;
   padding: 0.25rem;
 }

@@ -17,9 +17,12 @@ const preloads = fontPatterns.map((pattern) => {
   if (!file) throw new Error(`No font file matches ${pattern} in dist/assets`);
   return `<link rel="preload" href="/assets/${file}" as="font" type="font/woff2" crossorigin />`;
 });
+// Replacements are passed as functions on purpose: a replacement *string* treats
+// `$&`, `$'`, and similar sequences specially, which would corrupt the page if the
+// rendered content ever contained them.
 const head = template.replace(
   "</head>",
-  `  ${preloads.join("\n    ")}\n  </head>`,
+  () => `  ${preloads.join("\n    ")}\n  </head>`,
 );
 
 // GitHub Pages serves 404.html for unknown paths. Any path the router doesn't know
@@ -29,7 +32,7 @@ for (const [file, url] of Object.entries(pages)) {
   const html = await render(url);
   writeFileSync(
     `dist/${file}`,
-    head.replace(ROOT, `<div id="root">${html}</div>`),
+    head.replace(ROOT, () => `<div id="root">${html}</div>`),
   );
   console.log(`prerendered ${url} -> dist/${file}`);
 }

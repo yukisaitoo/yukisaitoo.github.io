@@ -21,33 +21,39 @@ const LINE_AT_TOP_PX = 160;
  * nav link is clicked: the clicked section stays highlighted while the page scrolls
  * to it. Without that, clicking a section near the bottom (one the page can't scroll
  * up to the top of the screen) would highlight whichever section is last instead.
+ *
+ * `sections` should keep the same identity between renders (e.g. a module-level
+ * constant), since the scroll listeners re-attach whenever it changes.
  */
-// Takes the ids joined into one string ("about,skills,…") rather than an array:
-// a string compares by value, so the effect below re-runs exactly when the list
-// of sections changes, and never just because a new array was created.
-function useActiveSection(idsKey: string) {
+function useActiveSection(sections: readonly NavSection[]) {
   // Starts null on the server and on the first browser render, so the prerendered
   // HTML and React's first render match. The real value arrives in the effect.
   const [active, setActive] = useState<string | null>(null);
   // True while a click-triggered scroll is running; scroll tracking pauses meanwhile.
   const locked = useRef(false);
+  // Ends the current click's lock early. Only one lock exists at a time, so a
+  // second click can't be cut short by the first click's leftover timer.
+  const releaseLock = useRef<(() => void) | null>(null);
 
   const select = (id: string) => {
+    releaseLock.current?.();
     setActive(id);
     locked.current = true;
     const unlock = () => {
       locked.current = false;
       window.removeEventListener("scrollend", unlock);
       clearTimeout(fallback);
+      releaseLock.current = null;
     };
     // `scrollend` fires when the smooth scroll stops. Some browsers lack it, and it
     // never fires if the page is already in place, so a timer unlocks as a backup.
     window.addEventListener("scrollend", unlock);
     const fallback = setTimeout(unlock, 1000);
+    releaseLock.current = unlock;
   };
 
   useEffect(() => {
-    const ids = idsKey.split(",");
+    const ids = sections.map((s) => s.id);
     let frame = 0;
 
     const update = () => {
@@ -84,16 +90,19 @@ function useActiveSection(idsKey: string) {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(frame);
+      releaseLock.current?.();
     };
-  }, [idsKey]);
+  }, [sections]);
 
   return { active, select };
 }
 
-export default function SectionNav({ sections }: { sections: NavSection[] }) {
-  const { active, select } = useActiveSection(
-    sections.map((s) => s.id).join(","),
-  );
+export default function SectionNav({
+  sections,
+}: {
+  sections: readonly NavSection[];
+}) {
+  const { active, select } = useActiveSection(sections);
 
   return (
     <nav className={styles.nav} aria-label="On this page">
@@ -104,7 +113,12 @@ export default function SectionNav({ sections }: { sections: NavSection[] }) {
               href={`#${id}`}
               className={styles.link}
               aria-current={active === id ? "location" : undefined}
-              onClick={() => select(id)}
+              onClick={(e) => {
+                // Cmd/Ctrl/Shift/Alt-click opens a tab or window instead of
+                // scrolling this page, so the highlight shouldn't move.
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+                select(id);
+              }}
             >
               {label}
             </a>

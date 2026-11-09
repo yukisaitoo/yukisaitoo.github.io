@@ -1,5 +1,5 @@
-// Design tokens. Values mirror the Tailwind v3 defaults the site was built with,
-// so the SCSS port renders identically.
+// Design tokens. Values started from Tailwind v3's defaults, from when the site
+// was built with Tailwind.
 
 // Breakpoints
 $bp-sm: 640px;
@@ -20,13 +20,6 @@ $bp-lg: 1024px;
 
 @mixin lg {
   @media (min-width: $bp-lg) {
-    @content;
-  }
-}
-
-// Below md (Tailwind's `max-md:`)
-@mixin max-md {
-  @media not all and (min-width: $bp-md) {
     @content;
   }
 }
@@ -53,7 +46,6 @@ $bp-lg: 1024px;
 $radius-lg: var(--radius);
 $radius-md: calc(var(--radius) - 2px);
 $radius-sm: calc(var(--radius) - 4px);
-$radius-xl: 0.75rem;
 $radius-full: 9999px;
 
 // Theme colors (HSL channels live in globals.scss)
@@ -66,7 +58,8 @@ $radius-full: 9999px;
 
 // Fixed palette colors
 $green-500: #22c55e;
-$orange-300: #fdba74;
+// orange-600: at least 3:1 against both themes' backgrounds, at rest and on hover.
+$orange-600: #ea580c;
 $indigo-500: #6366f1;
 
 // Shadows

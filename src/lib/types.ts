@@ -1,18 +1,19 @@
-export const iconNames = ["github", "linkedin", "mail"] as const;
-export type IconName = (typeof iconNames)[number];
+import type { LucideIcon } from "lucide-react";
 
 export interface IconLink {
   name: string;
   href: string;
-  icon: IconName;
+  icon: LucideIcon;
 }
 
 export interface Skill {
   name: string;
   /** Where the skill gets used. Optional: a tile without one shows just the name. */
   description?: string;
+  /** Path under public/, e.g. "/react.svg". */
   icon: string;
-  iconBg: string;
+  /** Background behind the icon, for logos that need one to read well. */
+  iconBg?: string;
 }
 
 export interface Experience {
@@ -20,12 +21,14 @@ export interface Experience {
   href?: string;
   title: string;
   logo: string;
+  /** Year and month, "YYYY-MM". Shown as "Jul 2023". */
   start: string;
+  /** Same format as start. Leave out for a current role ("Present"). */
   end?: string;
   location?: string;
   /** One or two plain sentences on what the time there was about. Not résumé bullets. */
   summary?: string;
-  /** Tech used in the role, shown as one muted line under the bullets. */
+  /** Tech used in the role, shown as one muted line under the summary. */
   stack?: string[];
 }
 
@@ -38,7 +41,7 @@ export interface Project {
   forkOf?: string;
   /**
    * Shown beside the cursor while hovering the project's link (desktop only).
-   * Path under public/: an image, or an .mp4 that plays muted on a loop.
+   * Path under public/: an image, or an .mp4/.webm that plays muted on a loop.
    */
   preview?: string;
   /** Width / height to crop the preview to, e.g. to trim black bars off a video. */

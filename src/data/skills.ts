@@ -4,28 +4,25 @@ export const skills: Skill[] = [
   {
     name: "TypeScript",
     description: "JavaScript but better",
-    icon: "typescript.svg",
-    iconBg: "",
+    icon: "/typescript.svg",
   },
   {
     name: "React",
-    icon: "react.svg",
+    icon: "/react.svg",
     iconBg: "#11282F",
   },
   {
     name: "C# / .NET",
-    icon: "csharp.svg",
-    iconBg: "",
+    icon: "/csharp.svg",
   },
   {
     name: "Sass",
-    icon: "sass.svg",
-    iconBg: "",
+    icon: "/sass.svg",
   },
   {
     name: "MUMPS",
     description: "Database language",
-    icon: "m.png",
+    icon: "/m.png",
     iconBg: "#f4e067",
   },
 ];

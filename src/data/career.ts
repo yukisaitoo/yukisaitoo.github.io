@@ -8,7 +8,7 @@ export const career: Experience[] = [
     href: "https://www.epic.com/",
     title: "Software Developer",
     logo: "/epic.png",
-    start: "Jul 2023",
+    start: "2023-07",
     location: "Madison, WI",
     summary:
       "I work closely with cross-functional teams, customers, and end users to ship projects for some of the largest health plans in the country.",
@@ -19,8 +19,8 @@ export const career: Experience[] = [
     href: "https://www.workday.com/",
     title: "Software Application Engineer Intern",
     logo: "/workday.png",
-    start: "May 2022",
-    end: "Aug 2022",
+    start: "2022-05",
+    end: "2022-08",
     location: "Pleasanton, CA",
     summary:
       "Summer internship on the Customer Experience Platform team. I helped them migrate to React and took their test coverage to 100%.",
@@ -30,8 +30,8 @@ export const career: Experience[] = [
     name: "Xircle",
     title: "Mobile Software Engineer",
     logo: "/xircle.png",
-    start: "Nov 2021",
-    end: "Jun 2022",
+    start: "2021-11",
+    end: "2022-06",
     location: "San Jose, CA",
     summary:
       "A faculty-backed student startup building a social app for college students, with 500+ active users. I owned the profile and settings experience in React Native.",
@@ -41,8 +41,8 @@ export const career: Experience[] = [
     name: "Hakkei",
     title: "Software Engineer Intern",
     logo: "/hakkei.png",
-    start: "Nov 2020",
-    end: "Mar 2021",
+    start: "2020-11",
+    end: "2021-03",
     location: "Sunnyvale, CA",
     summary:
       "My first engineering job. I built the web app people used to remap the keys on Hakkei’s ergonomic keyboard.",

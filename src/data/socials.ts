@@ -1,19 +1,21 @@
+import { Github, Linkedin, Mail } from "@/components/icons";
 import type { IconLink } from "@/lib/types.ts";
+import { site } from "./site.ts";
 
 export const socials: IconLink[] = [
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/yuki-saito/",
-    icon: "linkedin",
+    icon: Linkedin,
   },
   {
     name: "GitHub",
     href: "https://github.com/yukisaitoo",
-    icon: "github",
+    icon: Github,
   },
   {
     name: "Email",
-    href: "mailto:saitoyukisaito@gmail.com",
-    icon: "mail",
+    href: `mailto:${site.email}`,
+    icon: Mail,
   },
 ];

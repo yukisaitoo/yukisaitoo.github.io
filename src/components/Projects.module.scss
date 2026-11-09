@@ -43,8 +43,8 @@
   color: color(foreground, 0.85);
 }
 
-// Floating screenshot that follows the cursor. Position comes from --x/--y, set
-// in Projects.tsx; it's vertically centered on the cursor.
+// Floating preview (image or video) that follows the cursor. Position comes
+// from --x/--y, set in Projects.tsx; it's vertically centered on the cursor.
 .preview {
   position: fixed;
   top: 0;
@@ -59,7 +59,8 @@
     0 10px 30px -10px rgb(0 0 0 / 0.25),
     0 4px 10px -6px rgb(0 0 0 / 0.15);
   pointer-events: none;
-  translate: var(--x, 0) calc(var(--y, 0) - 50%);
+  // The 0px fallbacks need a unit: calc(0 - 50%) is invalid and would drop the rule.
+  translate: var(--x, 0px) calc(var(--y, 0px) - 50%);
   opacity: 0;
   scale: 0.96;
   transition:
@@ -77,8 +78,9 @@
   }
 }
 
-// Every preview is in the DOM so it downloads up front (display: none still
-// loads an image or a preload="auto" video), but only the active one shows, so
+// Every preview mounts together once a mouse enters the list, so they all
+// download then (display: none still loads an image or a preload="auto"
+// video), ready before any link is hovered. Only the active one shows, so
 // the card is exactly that one's height. object-fit: cover handles cropping
 // when a project sets previewAspect.
 .media {

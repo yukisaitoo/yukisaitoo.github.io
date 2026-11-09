@@ -1,3 +1,4 @@
+import { site } from "@/data/site.ts";
 import styles from "./Footer.module.scss";
 import ThemeMenu from "./ThemeMenu.tsx";
 
@@ -5,9 +6,9 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <p>
-        Yuki Saito ·{" "}
-        <a href="mailto:saitoyukisaito@gmail.com" className="link">
-          saitoyukisaito@gmail.com
+        {site.name} ·{" "}
+        <a href={`mailto:${site.email}`} className="link">
+          {site.email}
         </a>
       </p>
       <ThemeMenu />

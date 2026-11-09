@@ -6,6 +6,7 @@ import Socials from "@/components/Socials.tsx";
 import Timeline from "@/components/Timeline.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { career } from "@/data/career.ts";
+import { site } from "@/data/site.ts";
 import type { ReactNode } from "react";
 import styles from "./Home.module.scss";
 
@@ -23,6 +24,8 @@ const navSections: NavSection[] = [
 ];
 
 type SectionId = (typeof sections)[number]["id"];
+
+const currentRole = career[0];
 
 function Section({ id, children }: { id: SectionId; children: ReactNode }) {
   const { label } = sections.find((s) => s.id === id)!;
@@ -46,15 +49,17 @@ export default function Home() {
             <img
               className={styles.photo}
               src="/yuki.webp"
-              alt="Yuki Saito"
+              alt={site.name}
               width={60}
               height={60}
               decoding="async"
               fetchPriority="high"
             />
             <div>
-              <h1 className={styles.name}>Yuki Saito</h1>
-              <p className={styles.role}>Software Developer at Epic Systems</p>
+              <h1 className={styles.name}>{site.name}</h1>
+              <p className={styles.role}>
+                {currentRole.title} at {currentRole.name}
+              </p>
             </div>
           </div>
           <p className={styles.status}>

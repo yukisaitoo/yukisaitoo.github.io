@@ -8,17 +8,16 @@ export default function Skills() {
         <li className={styles.tile} key={skill.name}>
           <div
             className={styles.iconBox}
-            style={{
-              backgroundColor: skill.iconBg,
-              padding: skill.iconBg ? "0.25rem" : "",
-            }}
+            style={{ backgroundColor: skill.iconBg }}
           >
+            {/* Lazy, so the prerendered page doesn't preload every icon up front. */}
             <img
               className={styles.icon}
-              src={`/${skill.icon}`}
+              src={skill.icon}
               alt=""
               width={40}
               height={40}
+              loading="lazy"
               decoding="async"
             />
           </div>

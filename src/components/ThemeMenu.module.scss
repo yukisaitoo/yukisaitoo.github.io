@@ -13,7 +13,7 @@
 }
 
 .light {
-  color: $orange-300;
+  color: $orange-600;
 }
 
 .dark {
@@ -69,7 +69,15 @@
   &:focus-visible {
     background-color: color(accent);
     color: color(accent-foreground);
-    outline: none;
+  }
+
+  // The background change is the visible focus cue. The transparent outline
+  // draws nothing normally, but forced-colors mode (Windows High Contrast)
+  // repaints it in a system color after wiping the background, so keyboard
+  // focus stays visible there too.
+  &:focus-visible {
+    outline: 2px solid transparent;
+    outline-offset: -2px;
   }
 }
 

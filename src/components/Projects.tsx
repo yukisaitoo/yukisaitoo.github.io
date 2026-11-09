@@ -7,7 +7,7 @@ import styles from "./Projects.module.scss";
 // Gap between the cursor and the preview card, in px.
 const OFFSET = 24;
 
-const isVideo = (src: string) => src.endsWith(".mp4");
+const isVideo = (src: string) => /\.(mp4|webm)$/.test(src);
 
 function PreviewMedia({
   project,
@@ -24,7 +24,7 @@ function PreviewMedia({
     style: previewAspect ? { aspectRatio: previewAspect } : undefined,
   };
   return isVideo(preview) ? (
-    // preload="auto" fetches it as soon as the card mounts, so it's ready by
+    // preload="auto" fetches it as soon as the media mounts, so it's ready by
     // the time the link is hovered. Muted + playsInline lets browsers play it
     // without a click.
     <video {...common} src={preview} muted loop playsInline preload="auto" />
@@ -34,20 +34,27 @@ function PreviewMedia({
 }
 
 export default function Projects() {
-  // The card (and so its media) only mounts once a mouse first enters the list,
-  // so phones never download the previews.
+  // The media only mounts once a mouse first enters the list, so phones never
+  // download the previews. The card itself is always there, so the very first
+  // hover can already position it.
   const [armed, setArmed] = useState(false);
-  const [active, setActive] = useState<string | null>(null);
+  // href of the project whose link is hovered right now, or null.
+  const [hovered, setHovered] = useState<string | null>(null);
+  // href of the last project hovered. Unlike `hovered`, it isn't cleared when the
+  // pointer leaves, so the card fades out with its media still inside instead of
+  // collapsing to an empty box first.
+  const [shown, setShown] = useState<string | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  // Play the hovered project's video from the start; pause every other one.
+  // Play the hovered project's video from the start; pause every other one, and
+  // pause everything while the card fades out.
   // Visitors who asked their OS for less motion see the first frame, still.
   useEffect(() => {
     const card = cardRef.current;
     if (!card) return;
     const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     for (const video of card.querySelectorAll("video")) {
-      if (video.dataset.active === "true" && !calm) {
+      if (hovered !== null && video.dataset.active === "true" && !calm) {
         video.currentTime = 0;
         // play() can be refused (e.g. power-saving modes); the first frame stays.
         video.play().catch(() => {});
@@ -55,7 +62,7 @@ export default function Projects() {
         video.pause();
       }
     }
-  }, [active]);
+  }, [hovered]);
 
   // Moves the card with the cursor by writing CSS variables straight onto the
   // element. No React state, so moving the mouse doesn't re-render anything.
@@ -90,10 +97,11 @@ export default function Projects() {
                 onPointerEnter={(e) => {
                   if (e.pointerType !== "mouse" || !project.preview) return;
                   follow(e);
-                  setActive(project.preview);
+                  setHovered(project.href);
+                  setShown(project.href);
                 }}
                 onPointerMove={project.preview ? follow : undefined}
-                onPointerLeave={() => setActive(null)}
+                onPointerLeave={() => setHovered(null)}
               >
                 {project.name}
                 <ArrowTopRightIcon
@@ -115,22 +123,17 @@ export default function Projects() {
       </ul>
 
       {/* Decorative: the text above already describes each project. */}
-      {armed && (
-        <div
-          ref={cardRef}
-          className={styles.preview}
-          data-visible={active !== null}
-          aria-hidden="true"
-        >
-          {projects.map((p) => (
-            <PreviewMedia
-              key={p.href}
-              project={p}
-              active={active !== null && active === p.preview}
-            />
+      <div
+        ref={cardRef}
+        className={styles.preview}
+        data-visible={hovered !== null}
+        aria-hidden="true"
+      >
+        {armed &&
+          projects.map((p) => (
+            <PreviewMedia key={p.href} project={p} active={p.href === shown} />
           ))}
-        </div>
-      )}
+      </div>
     </>
   );
 }
