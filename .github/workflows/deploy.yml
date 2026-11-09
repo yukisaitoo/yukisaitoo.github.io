@@ -1,7 +1,5 @@
 name: Check and deploy
 
-# Every push and pull request is linted, format-checked, and built, so problems
-# show up before merging. Only pushes to main (or a manual run) deploy.
 on:
   push:
   pull_request:
@@ -22,7 +20,6 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run format:check
-      # Type-checks (tsc -b), builds, and prerenders.
       - run: npm run build
       - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
@@ -36,7 +33,6 @@ jobs:
     permissions:
       pages: write
       id-token: write
-    # One deployment at a time; don't cancel one that's already in progress.
     concurrency:
       group: pages
       cancel-in-progress: false

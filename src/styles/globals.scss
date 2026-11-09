@@ -2,8 +2,7 @@
 @use "tokens" as *;
 @use "@fontsource-variable/inter";
 
-// Global styles and ui primitives live in cascade layers so feature CSS Modules (unlayered)
-// always win, regardless of stylesheet order.
+// Layered so unlayered CSS Modules always win.
 @layer reset, base, components;
 
 @layer reset {
@@ -40,7 +39,6 @@
     border-color: theme(border);
   }
 
-  // Nav links glide to their section, unless the visitor asked their OS for less motion.
   @media (prefers-reduced-motion: no-preference) {
     html {
       scroll-behavior: smooth;
@@ -50,21 +48,17 @@
   body {
     display: flex;
     flex-direction: column;
-    // svh = the viewport with mobile browser toolbars showing, so a short page's
-    // footer isn't pushed just below the visible area. 100vh is the fallback.
     min-height: 100vh;
     min-height: 100svh;
     max-width: 40rem;
     margin-inline: auto;
     padding-inline: 1.25rem;
-    font-family: var(--font-sans);
     background-color: theme(background);
     color: theme(foreground);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  // React mounts into #root; let its children participate in body's flex layout.
   #root {
     display: contents;
   }

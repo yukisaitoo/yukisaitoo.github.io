@@ -17,10 +17,8 @@
   border: 1px solid theme(border);
   border-radius: $radius-lg;
   padding: 0.375rem;
-  @include transition;
+  @include transition-colors;
 
-  // Only on devices with a real pointer. On phones, a tap would leave the
-  // highlight stuck on until the next tap elsewhere.
   @media (hover: hover) {
     &:hover {
       border-color: theme(foreground);
@@ -39,8 +37,7 @@
 }
 
 .icon {
-  // Fixed 40x40 box even for non-square icons (csharp.svg is 2222x2500); the
-  // reset's `height: auto` would otherwise make those taller.
+  // Fixed box; the reset's height: auto stretches non-square SVGs.
   width: 40px;
   height: 40px;
   border-radius: $radius-sm;

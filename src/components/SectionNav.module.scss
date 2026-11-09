@@ -1,22 +1,19 @@
 @use "../styles/tokens" as *;
 
-// Desktop only: sits in the empty space left of the 40rem content column and stays
-// put while the page scrolls. Hidden below lg, where there's no room beside the text.
 .nav {
   display: none;
 
   @include lg {
     display: block;
     position: fixed;
-    // Lines up with the top of the hero (the page's top padding).
+    // Matches the page's top padding.
     top: 6rem;
-    // Half the content width (20rem) + nav width (8rem) + a 3rem gap, left of center.
+    // Half of the 40rem column + 8rem nav + 3rem gap.
     left: max(1rem, calc(50% - 31rem));
     width: 8rem;
   }
 }
 
-// A thin rail on the left; the current section's segment is drawn darker.
 .list {
   border-left: 1px solid theme(border);
 }

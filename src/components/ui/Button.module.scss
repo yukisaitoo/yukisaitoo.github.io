@@ -1,7 +1,6 @@
 @use "../../styles/tokens" as *;
 
-// Primitives sit in the `components` layer so styles passed in via
-// className (unlayered) always override them.
+// Layered so unlayered className styles win.
 @layer components {
   .button {
     display: inline-flex;
@@ -14,7 +13,7 @@
     @include transition-colors;
 
     &:focus-visible {
-      @include focus-ring(1px);
+      @include focus-ring;
     }
 
     &:disabled {

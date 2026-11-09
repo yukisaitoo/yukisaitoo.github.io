@@ -1,6 +1,5 @@
 import type { Project } from "@/lib/types.ts";
 
-// From the resume vault's projects/ notes. Forks carry `forkOf` so they're labeled as forks.
 export const projects: Project[] = [
   {
     name: "Plan View for Claude Code",
@@ -23,11 +22,11 @@ export const projects: Project[] = [
     name: "InstantSpaceSwitcher",
     href: "https://github.com/yukisaitoo/InstantSpaceSwitcher",
     preview: {
-      // Demo recording from the upstream README (jurplel's), re-encoded to 960x540.
+      // Demo from the upstream README.
       src: "/previews/instant-space-switcher.mp4",
       width: 960,
       height: 540,
-      // The recording is 16:10 inside a 16:9 frame; this crops off the black side bars.
+      // Trims the black side bars.
       crop: 1.55,
     },
     forkOf: "jurplel/InstantSpaceSwitcher",

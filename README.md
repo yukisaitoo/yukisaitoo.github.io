@@ -18,17 +18,15 @@ npm run format:check  # prettier --check (what CI runs)
 
 - `src/pages/`: routes (`Home`, `NotFound`), wired up in `src/App.tsx`
 - `src/components/`: feature components, most with a `*.module.scss`
-- `src/components/ui/`: small primitives (`Button`)
-- `src/components/icons/`: vendored icon shapes (see Notes)
+- `src/components/ui/`: shared button styles (`buttonClass`)
+- `src/components/icons/`: inline SVG icons
 - `src/styles/`: reset, design tokens (`_tokens.scss`), global theme variables (`globals.scss`)
 - `src/data/*.ts`: site content (`career`, `projects`, `skills`, `socials`, `site`), typed by `src/lib/types.ts`
 - `src/main.tsx`: browser entry; hydrates the prerendered HTML
 - `src/entry-server.tsx` + `scripts/prerender.mjs`: build-time rendering of `index.html` and `404.html`
 - `public/`: static assets served as-is (images, preview media, `resume.pdf`)
 
-Light/dark theme colors are HSL custom properties in `src/styles/globals.scss`.
-
 ## Notes
 
 - GitHub Pages has no SPA routing. The build prerenders the NotFound page as `404.html`, which Pages serves for unknown paths.
-- `src/components/icons/` vendors GitHub/LinkedIn (dropped from lucide-react 1.x) and the original Mail/FileDown shapes (redrawn in 1.x).
+- `src/components/icons/` holds lucide v0.441 shapes. Lucide 1.x dropped the brand icons and redrew Mail/FileDown.

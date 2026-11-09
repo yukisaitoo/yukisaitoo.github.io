@@ -8,8 +8,6 @@
   align-items: start;
 }
 
-// Phones: summary and stack use the full width under the logo instead of staying
-// indented, which would squeeze lines to ~28 characters. Wider screens indent them.
 .summary,
 .stack {
   grid-column: 1 / -1;
@@ -19,7 +17,7 @@
   }
 }
 
-// White backing so transparent logos stay visible in dark mode.
+// White so transparent logos work in dark mode.
 .logo {
   width: 2.5rem;
   height: 2.5rem;

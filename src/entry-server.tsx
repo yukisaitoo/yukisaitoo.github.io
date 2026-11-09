@@ -1,5 +1,4 @@
-// Build-time entry: renders a page to an HTML string. Only scripts/prerender.mjs
-// uses this; it never ships to the browser.
+// Used by scripts/prerender.mjs at build time.
 import { StrictMode } from "react";
 import { prerender } from "react-dom/static";
 import { StaticRouter } from "react-router";

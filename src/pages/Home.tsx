@@ -1,38 +1,37 @@
 import { FileDown } from "@/components/icons";
 import Projects from "@/components/Projects.tsx";
-import SectionNav, { type NavSection } from "@/components/SectionNav.tsx";
+import SectionNav from "@/components/SectionNav.tsx";
 import Skills from "@/components/Skills.tsx";
 import Socials from "@/components/Socials.tsx";
 import Timeline from "@/components/Timeline.tsx";
-import { Button } from "@/components/ui/Button.tsx";
+import { buttonClass } from "@/components/ui/buttonClass.ts";
 import { career } from "@/data/career.ts";
 import { site } from "@/data/site.ts";
 import type { ReactNode } from "react";
 import styles from "./Home.module.scss";
 
-// One list drives both the side nav and the section ids, so they can't drift apart.
-const sections = [
+const navSections = [
+  { id: "about", label: "About" },
   { id: "skills", label: "Skills" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
-] as const satisfies readonly NavSection[];
-
-// The side nav also links to the intro at the top, which isn't a <Section>.
-const navSections: NavSection[] = [
-  { id: "about", label: "About" },
-  ...sections,
 ];
-
-type SectionId = (typeof sections)[number]["id"];
 
 const currentRole = career[0];
 
-function Section({ id, children }: { id: SectionId; children: ReactNode }) {
-  const { label } = sections.find((s) => s.id === id)!;
+function Section({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: ReactNode;
+}) {
   return (
     <section id={id} className={styles.section} aria-labelledby={`${id}-title`}>
       <h2 id={`${id}-title`} className={styles.sectionTitle}>
-        {label}
+        {title}
       </h2>
       {children}
     </section>
@@ -73,25 +72,28 @@ export default function Home() {
         </p>
 
         <div className={styles.actions}>
-          <Button variant="outline" asChild>
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-              Resume
-              <FileDown className={styles.resumeIcon} aria-hidden="true" />
-            </a>
-          </Button>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={buttonClass({ variant: "outline" })}
+          >
+            Resume
+            <FileDown className={styles.resumeIcon} aria-hidden="true" />
+          </a>
           <Socials />
         </div>
       </section>
 
-      <Section id="skills">
+      <Section id="skills" title="Skills">
         <Skills />
       </Section>
 
-      <Section id="experience">
-        <Timeline experience={career} />
+      <Section id="experience" title="Experience">
+        <Timeline />
       </Section>
 
-      <Section id="projects">
+      <Section id="projects" title="Projects">
         <Projects />
       </Section>
     </article>

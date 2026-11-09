@@ -43,8 +43,7 @@
   color: theme(foreground, 0.85);
 }
 
-// Floating preview (image or video) that follows the cursor. --x/--y are the
-// card's top-left corner, worked out in Projects.tsx.
+// --x/--y set in Projects.tsx.
 .preview {
   position: fixed;
   top: 0;
@@ -76,18 +75,13 @@
     transition: none;
   }
 
-  // Below sm there's no room for the card beside the links, so it would cover the
-  // very link it's previewing. It's decorative, so skip it there.
+  // No room beside the links; it would cover them.
   @media (max-width: ($bp-sm - 1px)) {
     display: none;
   }
 }
 
-// Every preview mounts together once a mouse enters the list, so they all
-// download then (display: none still loads an image or a preload="auto"
-// video), ready before any link is hovered. Only the active one shows, so
-// the card is exactly that one's height. object-fit: cover handles cropping
-// when a project's preview sets `crop`.
+// All mount at once so they preload; display: none still downloads them.
 .media {
   display: none;
   width: 100%;

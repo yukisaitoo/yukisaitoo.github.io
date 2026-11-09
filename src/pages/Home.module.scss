@@ -1,7 +1,5 @@
 @use "../styles/tokens" as *;
 
-// Space between sections (3rem) stays about 3x the space under each section title
-// (1rem), so a title clearly belongs to the content below it, not the section above.
 .article {
   display: flex;
   flex-direction: column;
@@ -17,13 +15,10 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  // Matches the page's top padding, so the "About" nav link scrolls all the way
-  // back to the top instead of stopping with the name flush against the edge.
+  // Matches the page's top padding.
   scroll-margin-top: 6rem;
 }
 
-// Identity block, then the badge on its own row, kept closer together than the
-// hero's other pieces so they read as one unit.
 .header {
   display: flex;
   flex-direction: column;
@@ -37,10 +32,7 @@
   gap: 1rem;
 }
 
-// The photo is sized off the name + title lines next to it, so the two form one
-// block: name line (2rem) + title line (1.25rem on phones, 1.5rem wider), plus
-// 0.25rem so it overhangs the text by a couple of pixels top and bottom.
-// If either line's size changes, change this to match.
+// Name + role line heights + 0.25rem. Update if those change.
 .photo {
   width: 3.5rem;
   height: 3.5rem;
@@ -60,7 +52,6 @@
   letter-spacing: -0.015em;
 }
 
-// Slightly smaller on phones so the title stays on one line and the block stays square.
 .role {
   @include text-sm;
   color: theme(muted-foreground);
@@ -87,8 +78,6 @@
   height: 1rem;
 }
 
-// Borderless pill with green text. Text is darker green on light backgrounds and
-// lighter green on dark ones, so it stays readable in both themes.
 .status {
   display: inline-flex;
   align-items: center;
@@ -98,8 +87,7 @@
   padding: 0.25rem 0.75rem 0.25rem 0.625rem;
   @include text-xs;
   font-weight: 500;
-  // Contrast on the tint: 6.3:1 here, 9.3:1 in dark mode (WCAG AA needs 4.5:1).
-  // Lighter greens like #15803d fall just short (4.45:1).
+  // Lightest green that passes AA on the tint.
   color: #166534;
 
   :global(.dark) & {
@@ -108,7 +96,6 @@
   }
 }
 
-// Solid dot with a ring that grows and fades behind it, like a "live" indicator.
 .statusDot {
   position: relative;
   width: 0.4375rem;
@@ -126,7 +113,6 @@
     animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
-  // Visitors who've asked their OS for less motion get a still dot.
   @media (prefers-reduced-motion: reduce) {
     &::after {
       animation: none;
@@ -146,7 +132,6 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  // Leaves a little room above the heading when a nav link jumps here.
   scroll-margin-top: 2rem;
 }
 

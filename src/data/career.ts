@@ -1,7 +1,5 @@
 import type { Experience } from "@/lib/types.ts";
 
-// Each role gets a short summary of the time there, not résumé bullets: the
-// résumé PDF carries the detail. Facts come from the resume vault.
 export const career: Experience[] = [
   {
     name: "Epic Systems",

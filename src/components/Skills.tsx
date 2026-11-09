@@ -10,7 +10,6 @@ export default function Skills() {
             className={styles.iconBox}
             style={{ backgroundColor: skill.iconBg }}
           >
-            {/* Lazy, so the prerendered page doesn't preload every icon up front. */}
             <img
               className={styles.icon}
               src={skill.icon}
@@ -21,7 +20,6 @@ export default function Skills() {
               decoding="async"
             />
           </div>
-          {/* Flex column centered vertically, so a tile with no subtitle centers its name. */}
           <div className={styles.text}>
             <p className={styles.name}>{skill.name}</p>
             {skill.description && (

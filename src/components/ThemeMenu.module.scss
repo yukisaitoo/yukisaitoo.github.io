@@ -20,17 +20,14 @@
   color: $indigo-500;
 }
 
-// Names the button so the menu can position itself against it (CSS anchor positioning).
 .trigger {
   anchor-name: --theme-menu;
 }
 
 .menu {
-  // Browsers center popovers on screen by default; undo that.
   inset: auto;
   margin: 0;
 
-  // Just above the button (it sits in the footer), right edges lined up.
   position-anchor: --theme-menu;
   bottom: calc(anchor(top) + 4px);
   right: anchor(right);
@@ -44,8 +41,7 @@
   box-shadow: $shadow;
 }
 
-// Older browsers without anchor positioning: fall back to the browser's default,
-// centered on screen. Less tidy, but always visible.
+// No anchor positioning: center it.
 @supports not (anchor-name: --a) {
   .menu {
     inset: 0;
@@ -71,10 +67,7 @@
     color: theme(accent-foreground);
   }
 
-  // The background change is the visible focus cue. The transparent outline
-  // draws nothing normally, but forced-colors mode (Windows High Contrast)
-  // repaints it in a system color after wiping the background, so keyboard
-  // focus stays visible there too.
+  // Invisible normally; shows in forced-colors mode.
   &:focus-visible {
     outline: 2px solid transparent;
     outline-offset: -2px;
