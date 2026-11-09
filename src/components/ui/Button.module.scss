@@ -1,0 +1,50 @@
+@use "../../styles/tokens" as *;
+
+// Layered so unlayered className styles win.
+@layer components {
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    border-radius: $radius-md;
+    @include text-sm;
+    font-weight: 500;
+    @include transition-colors;
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
+
+  .variant-outline {
+    border: 1px solid theme(input);
+    background-color: theme(background);
+    box-shadow: $shadow-sm;
+
+    &:hover {
+      background-color: theme(accent);
+      color: theme(accent-foreground);
+    }
+  }
+
+  .variant-ghost:hover {
+    background-color: theme(accent);
+    color: theme(accent-foreground);
+  }
+
+  .size-default {
+    height: 2.25rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .size-icon {
+    height: 2.25rem;
+    width: 2.25rem;
+  }
+}

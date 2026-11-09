@@ -1,0 +1,13 @@
+@use "../styles/tokens" as *;
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid theme(border);
+  padding-block: 1.5rem 3rem;
+  @include text-sm;
+  color: theme(muted-foreground);
+}

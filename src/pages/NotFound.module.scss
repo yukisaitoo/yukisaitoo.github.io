@@ -1,0 +1,40 @@
+@use "../styles/tokens" as *;
+
+.article {
+  display: flex;
+  flex-direction: column;
+  padding-block: 6rem;
+}
+
+.code {
+  @include text-sm;
+  font-weight: 600;
+  color: theme(muted-foreground);
+}
+
+.heading {
+  margin-top: 0.5rem;
+  @include text-2xl;
+  font-weight: 600;
+}
+
+.hint {
+  margin-top: 0.5rem;
+  color: theme(muted-foreground);
+}
+
+.actions {
+  margin-top: 2rem;
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 300;
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+}
