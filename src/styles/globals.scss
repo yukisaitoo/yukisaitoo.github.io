@@ -14,7 +14,6 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 224 71.4% 4.1%;
-    --muted: 220 14.3% 95.9%;
     --muted-foreground: 220 8.9% 46.1%;
     --accent: 220 14.3% 95.9%;
     --accent-foreground: 220.9 39.3% 11%;
@@ -29,7 +28,6 @@
   .dark {
     --background: 224 71.4% 4.1%;
     --foreground: 210 20% 98%;
-    --muted: 215 27.9% 16.9%;
     --muted-foreground: 217.9 10.6% 64.9%;
     --accent: 215 27.9% 16.9%;
     --accent-foreground: 210 20% 98%;
@@ -39,7 +37,7 @@
   }
 
   * {
-    border-color: color(border);
+    border-color: theme(border);
   }
 
   // Nav links glide to their section, unless the visitor asked their OS for less motion.
@@ -60,8 +58,8 @@
     margin-inline: auto;
     padding-inline: 1.25rem;
     font-family: var(--font-sans);
-    background-color: color(background);
-    color: color(foreground);
+    background-color: theme(background);
+    color: theme(foreground);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -72,11 +70,11 @@
   }
 
   .link {
-    color: color(muted-foreground);
+    color: theme(muted-foreground);
     @include transition-colors;
 
     &:hover {
-      color: color(foreground);
+      color: theme(foreground);
     }
   }
 

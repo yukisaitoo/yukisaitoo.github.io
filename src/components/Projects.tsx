@@ -1,35 +1,45 @@
 import { projects } from "@/data/projects.ts";
-import type { Project } from "@/lib/types.ts";
+import type { Preview } from "@/lib/types.ts";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import styles from "./Projects.module.scss";
 
 // Gap between the cursor and the preview card, in px.
 const OFFSET = 24;
+// Smallest gap kept between the card and the window's edges, in px.
+const EDGE = 8;
 
 const isVideo = (src: string) => /\.(mp4|webm)$/.test(src);
+const aspectOf = (p: Preview) => p.crop ?? p.width / p.height;
 
 function PreviewMedia({
-  project,
+  preview,
   active,
 }: {
-  project: Project;
+  preview: Preview;
   active: boolean;
 }) {
-  const { preview, previewAspect } = project;
-  if (!preview) return null;
   const common = {
     className: styles.media,
     "data-active": active,
-    style: previewAspect ? { aspectRatio: previewAspect } : undefined,
+    // Sized from the data, so the card has its final shape even before the file
+    // loads (otherwise an unloaded image is 0px tall and the card a thin sliver).
+    style: { aspectRatio: aspectOf(preview) },
   };
-  return isVideo(preview) ? (
+  return isVideo(preview.src) ? (
     // preload="auto" fetches it as soon as the media mounts, so it's ready by
     // the time the link is hovered. Muted + playsInline lets browsers play it
     // without a click.
-    <video {...common} src={preview} muted loop playsInline preload="auto" />
+    <video
+      {...common}
+      src={preview.src}
+      muted
+      loop
+      playsInline
+      preload="auto"
+    />
   ) : (
-    <img {...common} src={preview} alt="" decoding="async" />
+    <img {...common} src={preview.src} alt="" decoding="async" />
   );
 }
 
@@ -66,16 +76,28 @@ export default function Projects() {
 
   // Moves the card with the cursor by writing CSS variables straight onto the
   // element. No React state, so moving the mouse doesn't re-render anything.
-  const follow = (e: PointerEvent) => {
+  const follow = (e: PointerEvent, preview: Preview) => {
     const card = cardRef.current;
     if (!card) return;
-    // Not enough room on the right? Put the card on the cursor's left instead.
-    const flip = e.clientX + OFFSET + card.offsetWidth > window.innerWidth;
-    card.style.setProperty(
-      "--x",
-      `${flip ? e.clientX - OFFSET - card.offsetWidth : e.clientX + OFFSET}px`,
+    // The card's height once this preview is showing, worked out from the data.
+    // Measuring offsetHeight would be wrong on the first pointerenter, because
+    // the card still holds the previous preview (or nothing) at that moment.
+    const border = card.offsetWidth - card.clientWidth;
+    const height = card.clientWidth / aspectOf(preview) + border;
+    // To the right of the cursor, kept inside the window. (The card is hidden in
+    // windows too narrow for it to fit beside the links; see the stylesheet.)
+    const x = Math.max(
+      EDGE,
+      Math.min(e.clientX + OFFSET, window.innerWidth - card.offsetWidth - EDGE),
     );
-    card.style.setProperty("--y", `${e.clientY}px`);
+    // Centered on the cursor, kept inside the window. If the window is shorter
+    // than the card, the top edge wins.
+    const y = Math.max(
+      EDGE,
+      Math.min(e.clientY - height / 2, window.innerHeight - height - EDGE),
+    );
+    card.style.setProperty("--x", `${x}px`);
+    card.style.setProperty("--y", `${y}px`);
   };
 
   return (
@@ -86,7 +108,7 @@ export default function Projects() {
           if (e.pointerType === "mouse") setArmed(true);
         }}
       >
-        {projects.map((project) => (
+        {projects.map(({ preview, ...project }) => (
           <li key={project.href} className={styles.item}>
             <h3 className={styles.name}>
               {/* The preview follows the cursor only while it's over the link. */}
@@ -95,12 +117,12 @@ export default function Projects() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onPointerEnter={(e) => {
-                  if (e.pointerType !== "mouse" || !project.preview) return;
-                  follow(e);
+                  if (e.pointerType !== "mouse" || !preview) return;
+                  follow(e, preview);
                   setHovered(project.href);
                   setShown(project.href);
                 }}
-                onPointerMove={project.preview ? follow : undefined}
+                onPointerMove={preview ? (e) => follow(e, preview) : undefined}
                 onPointerLeave={() => setHovered(null)}
               >
                 {project.name}
@@ -130,9 +152,16 @@ export default function Projects() {
         aria-hidden="true"
       >
         {armed &&
-          projects.map((p) => (
-            <PreviewMedia key={p.href} project={p} active={p.href === shown} />
-          ))}
+          projects.map(
+            (p) =>
+              p.preview && (
+                <PreviewMedia
+                  key={p.href}
+                  preview={p.preview}
+                  active={p.href === shown}
+                />
+              ),
+          )}
       </div>
     </>
   );

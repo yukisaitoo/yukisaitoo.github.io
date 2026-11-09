@@ -30,21 +30,21 @@
 .arrow {
   width: 1rem;
   height: 1rem;
-  color: color(muted-foreground);
+  color: theme(muted-foreground);
 }
 
 .fork,
 .stack {
   @include text-sm;
-  color: color(muted-foreground);
+  color: theme(muted-foreground);
 }
 
 .description {
-  color: color(foreground, 0.85);
+  color: theme(foreground, 0.85);
 }
 
-// Floating preview (image or video) that follows the cursor. Position comes
-// from --x/--y, set in Projects.tsx; it's vertically centered on the cursor.
+// Floating preview (image or video) that follows the cursor. --x/--y are the
+// card's top-left corner, worked out in Projects.tsx.
 .preview {
   position: fixed;
   top: 0;
@@ -52,15 +52,14 @@
   z-index: 40;
   width: 22rem;
   overflow: hidden;
-  border: 1px solid color(border);
+  border: 1px solid theme(border);
   border-radius: $radius-lg;
-  background-color: color(background);
+  background-color: theme(background);
   box-shadow:
     0 10px 30px -10px rgb(0 0 0 / 0.25),
     0 4px 10px -6px rgb(0 0 0 / 0.15);
   pointer-events: none;
-  // The 0px fallbacks need a unit: calc(0 - 50%) is invalid and would drop the rule.
-  translate: var(--x, 0px) calc(var(--y, 0px) - 50%);
+  translate: var(--x, 0px) var(--y, 0px);
   opacity: 0;
   scale: 0.96;
   transition:
@@ -76,13 +75,19 @@
     scale: 1;
     transition: none;
   }
+
+  // Below sm there's no room for the card beside the links, so it would cover the
+  // very link it's previewing. It's decorative, so skip it there.
+  @media (max-width: ($bp-sm - 1px)) {
+    display: none;
+  }
 }
 
 // Every preview mounts together once a mouse enters the list, so they all
 // download then (display: none still loads an image or a preload="auto"
 // video), ready before any link is hovered. Only the active one shows, so
 // the card is exactly that one's height. object-fit: cover handles cropping
-// when a project sets previewAspect.
+// when a project's preview sets `crop`.
 .media {
   display: none;
   width: 100%;

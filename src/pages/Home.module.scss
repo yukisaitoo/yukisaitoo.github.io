@@ -63,7 +63,7 @@
 // Slightly smaller on phones so the title stays on one line and the block stays square.
 .role {
   @include text-sm;
-  color: color(muted-foreground);
+  color: theme(muted-foreground);
 
   @include sm {
     @include text-base;
@@ -71,7 +71,7 @@
 }
 
 .summary {
-  color: color(foreground, 0.85);
+  color: theme(foreground, 0.85);
 }
 
 .actions {
@@ -94,7 +94,7 @@
   align-items: center;
   gap: 0.5rem;
   border-radius: $radius-full;
-  background-color: rgb(34 197 94 / 0.14);
+  background-color: rgba($green-500, 0.14);
   padding: 0.25rem 0.75rem 0.25rem 0.625rem;
   @include text-xs;
   font-weight: 500;
@@ -103,7 +103,7 @@
   color: #166534;
 
   :global(.dark) & {
-    background-color: rgb(34 197 94 / 0.16);
+    background-color: rgba($green-500, 0.16);
     color: #4ade80;
   }
 }
@@ -153,5 +153,5 @@
 .sectionTitle {
   @include text-sm;
   font-weight: 600;
-  color: color(muted-foreground);
+  color: theme(muted-foreground);
 }

@@ -9,7 +9,7 @@
 .code {
   @include text-sm;
   font-weight: 600;
-  color: color(muted-foreground);
+  color: theme(muted-foreground);
 }
 
 .heading {
@@ -20,7 +20,7 @@
 
 .hint {
   margin-top: 0.5rem;
-  color: color(muted-foreground);
+  color: theme(muted-foreground);
 }
 
 .actions {

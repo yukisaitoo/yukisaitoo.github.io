@@ -9,7 +9,7 @@ export default function Socials() {
           <a
             href={href}
             target="_blank"
-            className={styles.link}
+            className="link"
             rel="noopener noreferrer"
             title={name}
           >

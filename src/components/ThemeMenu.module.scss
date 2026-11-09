@@ -9,7 +9,7 @@
 }
 
 .system {
-  color: color(muted-foreground);
+  color: theme(muted-foreground);
 }
 
 .light {
@@ -36,11 +36,11 @@
   right: anchor(right);
 
   min-width: 8rem;
-  border: 1px solid color(border);
+  border: 1px solid theme(border);
   border-radius: $radius-md;
-  background-color: color(background);
+  background-color: theme(background);
   padding: 0.25rem;
-  color: color(foreground);
+  color: theme(foreground);
   box-shadow: $shadow;
 }
 
@@ -67,8 +67,8 @@
 
   &:hover,
   &:focus-visible {
-    background-color: color(accent);
-    color: color(accent-foreground);
+    background-color: theme(accent);
+    color: theme(accent-foreground);
   }
 
   // The background change is the visible focus cue. The transparent outline

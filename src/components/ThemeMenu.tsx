@@ -43,13 +43,16 @@ export default function ThemeMenu() {
       : "system"
     : null;
   const CurrentIcon = current ? modes[current].Icon : null;
+  // Used for both the tooltip and the screen-reader name. Keeping them identical
+  // lets browsers drop the title as a duplicate instead of announcing it again.
+  const label = current ? `Theme: ${modes[current].label}` : "Theme";
 
   return (
     <>
       <Button
         size="icon"
         variant="ghost"
-        title="Theme"
+        title={label}
         className={styles.trigger}
         popoverTarget={menuId}
       >
@@ -58,9 +61,7 @@ export default function ThemeMenu() {
         ) : (
           <span className={styles.placeholder} />
         )}
-        <span className="sr-only">
-          {current ? `Theme: ${modes[current].label}` : "Theme"}
-        </span>
+        <span className="sr-only">{label}</span>
       </Button>
 
       {/* Sits right after the trigger in the DOM so Tab moves from the button into the menu. */}

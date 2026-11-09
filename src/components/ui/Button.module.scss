@@ -24,19 +24,19 @@
   }
 
   .variant-outline {
-    border: 1px solid color(input);
-    background-color: color(background);
+    border: 1px solid theme(input);
+    background-color: theme(background);
     box-shadow: $shadow-sm;
 
     &:hover {
-      background-color: color(accent);
-      color: color(accent-foreground);
+      background-color: theme(accent);
+      color: theme(accent-foreground);
     }
   }
 
   .variant-ghost:hover {
-    background-color: color(accent);
-    color: color(accent-foreground);
+    background-color: theme(accent);
+    color: theme(accent-foreground);
   }
 
   .size-default {

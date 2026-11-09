@@ -6,8 +6,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  border-top: 1px solid color(border);
+  border-top: 1px solid theme(border);
   padding-block: 1.5rem 3rem;
   @include text-sm;
-  color: color(muted-foreground);
+  color: theme(muted-foreground);
 }

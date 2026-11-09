@@ -39,11 +39,19 @@ export interface Project {
   stack: string[];
   /** Set for forks of someone else's repo, so the page labels them honestly. */
   forkOf?: string;
+  /** Shown beside the cursor while hovering the project's link (desktop only). */
+  preview?: Preview;
+}
+
+export interface Preview {
+  /** Path under public/: an image, or an .mp4/.webm that plays muted on a loop. */
+  src: string;
   /**
-   * Shown beside the cursor while hovering the project's link (desktop only).
-   * Path under public/: an image, or an .mp4/.webm that plays muted on a loop.
+   * The file's size in pixels. Lets the card take its final shape before the file
+   * has loaded, and lets Projects.tsx know the card's height when positioning it.
    */
-  preview?: string;
-  /** Width / height to crop the preview to, e.g. to trim black bars off a video. */
-  previewAspect?: number;
+  width: number;
+  height: number;
+  /** Width / height to crop to, e.g. to trim black bars off a video. Defaults to the file's own shape. */
+  crop?: number;
 }

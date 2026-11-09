@@ -6,21 +6,51 @@ export interface NavSection {
   label: string;
 }
 
-// A section counts as "current" once its top scrolls above an imaginary line.
-// The line moves with scroll progress: 160px from the top of the window when the
-// page is at the top, sliding down to the window's bottom edge at the end.
-//
-// Why it moves: a fixed line can't work at both ends. Set it low and, in a tall
-// window, Skills is already above it before you scroll, so About never shows.
-// Set it high and Projects, near the end of the page, can never scroll up far
-// enough to reach it, so it only highlights once you hit the very bottom.
-const LINE_AT_TOP_PX = 160;
+// A section becomes "current" once its top scrolls up past a line this far below
+// the top of the window.
+const LINE_PX = 160;
+
+interface Measured {
+  id: string;
+  /** Distance from the top of the page to the section's top, in px. */
+  top: number;
+  /** Where a nav click scrolls the page to: `top` minus its scroll-margin-top. */
+  scrollTo: number;
+}
+
+/**
+ * Picks the current section for scroll position `y`.
+ *
+ * Each section switches on when its top reaches the line, or at the halfway point
+ * between the previous section's click spot and the bottom of the page, whichever
+ * comes first. The second rule exists because sections near the end of the page
+ * may never reach the line (the page runs out of scroll), or only reach it right
+ * at the bottom. Using the halfway point keeps two promises:
+ * - The previous section still wins at its own click spot, so clicking it in the
+ *   nav and then scrolling a pixel doesn't jump the highlight to the next one.
+ * - The last section lights up before the very bottom wherever the page allows.
+ */
+function pickActive(sections: Measured[], y: number, maxScroll: number) {
+  let current = sections[0]?.id ?? null;
+  sections.forEach((section, i) => {
+    let switchAt = section.top - LINE_PX;
+    // A page too short to scroll keeps the plain line rule (About stays current).
+    if (i > 0 && maxScroll > 0) {
+      const prevSpot = Math.min(sections[i - 1].scrollTo, maxScroll);
+      switchAt = Math.min(switchAt, (prevSpot + maxScroll) / 2);
+    }
+    // 1px of slack: scroll positions can be fractional at the very bottom.
+    if (y >= switchAt - 1) current = section.id;
+  });
+  return current;
+}
 
 /**
  * Tracks the section the reader is looking at. Also returns `select`, for when a
  * nav link is clicked: the clicked section stays highlighted while the page scrolls
- * to it. Without that, clicking a section near the bottom (one the page can't scroll
- * up to the top of the screen) would highlight whichever section is last instead.
+ * to it, so the highlight doesn't flicker through the sections in between. It also
+ * covers a section whose click spot is past the bottom of the page: the page stops
+ * short and the last section would otherwise win.
  *
  * `sections` should keep the same identity between renders (e.g. a module-level
  * constant), since the scroll listeners re-attach whenever it changes.
@@ -59,23 +89,20 @@ function useActiveSection(sections: readonly NavSection[]) {
     const update = () => {
       frame = 0;
       if (locked.current) return;
-      const maxScroll =
-        document.documentElement.scrollHeight - window.innerHeight;
-      // 0 at the top of the page, 1 at the bottom (0 if the page doesn't scroll).
-      const progress =
-        maxScroll > 0
-          ? Math.min(Math.max(window.scrollY / maxScroll, 0), 1)
-          : 0;
-      const line =
-        LINE_AT_TOP_PX + (window.innerHeight - LINE_AT_TOP_PX) * progress;
-
-      // The current section is the last one whose top is above the line.
-      let current: string | null = ids[0];
+      const y = window.scrollY;
+      const maxScroll = Math.max(
+        document.documentElement.scrollHeight - window.innerHeight,
+        0,
+      );
+      const measured: Measured[] = [];
       for (const id of ids) {
         const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= line) current = id;
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top + y;
+        const margin = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+        measured.push({ id, top, scrollTo: Math.max(top - margin, 0) });
       }
-      setActive(current);
+      setActive(pickActive(measured, y, maxScroll));
     };
 
     // Scroll fires many times per frame; batch to at most one update per frame.

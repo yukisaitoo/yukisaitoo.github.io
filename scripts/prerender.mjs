@@ -25,15 +25,21 @@ const head = template.replace(
   () => `  ${preloads.join("\n    ")}\n  </head>`,
 );
 
+const TITLE = /<title>[^<]*<\/title>/;
+if (!TITLE.test(head)) throw new Error("dist/index.html is missing a <title>");
+
 // GitHub Pages serves 404.html for unknown paths. Any path the router doesn't know
 // renders NotFound, so "/404" stands in for all of them.
-const pages = { "index.html": "/", "404.html": "/404" };
-for (const [file, url] of Object.entries(pages)) {
+// `title` replaces index.html's <title>; leave it out to keep that one.
+const pages = {
+  "index.html": { url: "/" },
+  "404.html": { url: "/404", title: "Page not found · Yuki Saito" },
+};
+for (const [file, { url, title }] of Object.entries(pages)) {
   const html = await render(url);
-  writeFileSync(
-    `dist/${file}`,
-    head.replace(ROOT, () => `<div id="root">${html}</div>`),
-  );
+  let page = head.replace(ROOT, () => `<div id="root">${html}</div>`);
+  if (title) page = page.replace(TITLE, () => `<title>${title}</title>`);
+  writeFileSync(`dist/${file}`, page);
   console.log(`prerendered ${url} -> dist/${file}`);
 }
 

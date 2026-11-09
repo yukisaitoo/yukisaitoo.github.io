@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  border: 1px solid color(border);
+  border: 1px solid theme(border);
   border-radius: $radius-lg;
   padding: 0.375rem;
   @include transition;
@@ -23,7 +23,7 @@
   // highlight stuck on until the next tap elsewhere.
   @media (hover: hover) {
     &:hover {
-      border-color: color(foreground);
+      border-color: theme(foreground);
     }
   }
 }
@@ -68,5 +68,5 @@
 
 .description {
   @include text-xs;
-  color: color(muted-foreground);
+  color: theme(muted-foreground);
 }

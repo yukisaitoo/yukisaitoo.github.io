@@ -48,8 +48,10 @@ $radius-md: calc(var(--radius) - 2px);
 $radius-sm: calc(var(--radius) - 4px);
 $radius-full: 9999px;
 
-// Theme colors (HSL channels live in globals.scss)
-@function color($name, $alpha: null) {
+// Theme colors (HSL channels live in globals.scss). Named theme(), not color():
+// a Sass function called color() would silently swallow CSS's own color()
+// function, e.g. color(display-p3 1 0 0), in every file that uses these tokens.
+@function theme($name, $alpha: null) {
   @if $alpha {
     @return hsl(var(--#{$name}) / #{$alpha});
   }
@@ -91,6 +93,6 @@ $duration: 150ms;
   outline: 2px solid transparent;
   outline-offset: 2px;
   box-shadow:
-    0 0 0 $offset color(background),
-    0 0 0 calc(#{$width} + #{$offset}) color(ring);
+    0 0 0 $offset theme(background),
+    0 0 0 calc(#{$width} + #{$offset}) theme(ring);
 }
